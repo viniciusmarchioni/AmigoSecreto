@@ -149,6 +149,3 @@ def verificar_sorteio(cpf):
 
     conn.close()
     return resultado[0] + " quer " + resultado[1]
-
-
-sortear()
