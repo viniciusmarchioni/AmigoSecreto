@@ -124,10 +124,10 @@ def verificar_sorteio(cpf):
     cpf = limpar_cpf(cpf)
     # Conectar ao banco de dados
     conn = psycopg2.connect(
-        host="isabelle.db.elephantsql.com",
-        database="zlhwkfxk",
-        user="zlhwkfxk",
-        password="5H5djg3N01zMeTkRC3RmnZoFVo9Yia63",
+        host="host",
+        database="database",
+        user="user",
+        password="password",
     )
 
     cursor = conn.cursor()
