@@ -13,9 +13,9 @@ import java.sql.DriverManager
 class MainActivity : AppCompatActivity() {
 
     //Acesso ao banco de dados
-    val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
-    val user = "zlhwkfxk"
-    val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
+    val url = "url"
+    val user = "user"
+    val password = "password"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
