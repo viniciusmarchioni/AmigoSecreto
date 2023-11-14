@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#242424"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:contentDescription="Image"
+        android:src="@drawable/account_circle" />
+
+    <EditText
+        android:id="@+id/cpf_edit"
+        style="@style/editTextStyle"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:hint="CPF"
+        android:inputType="number"
+        android:minWidth="150dp" />
+
+    <EditText
+        android:id="@+id/nome_edit"
+        style="@style/editTextStyle"
+        android:layout_below="@+id/cpf_edit"
+        android:layout_centerHorizontal="true"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        android:minWidth="150dp" />
+
+    <EditText
+        android:id="@+id/desejo_edit"
+        style="@style/editTextStyle"
+        android:layout_below="@+id/nome_edit"
+        android:layout_centerHorizontal="true"
+        android:hint="Desejo(s)"
+        android:minWidth="150dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/desejo_edit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/white"
+        android:text=""
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/cadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Cadastrar"
+        android:backgroundTint="#1F6AA4"
+        />
+
+    <Button
+        android:id="@+id/verificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastrar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Verificar sorteio"
+        android:backgroundTint="#1F6AA4"
+        />
+
+
+</RelativeLayout>
