@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
     private fun cadastro(cpf: EditText, nome: EditText, desejo: EditText, button: Button): String {
         button.isClickable = false
         //Acesso ao banco de dados
-        val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
-        val user = "zlhwkfxk"
-        val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
+        val url = "url"
+        val user = "user"
+        val password = "password"
 
         //Verificações de entradas
         if (verificarString(cpf.text.toString(), 14, 5)) {
@@ -114,9 +114,9 @@ class MainActivity : AppCompatActivity() {
     //verifica quem foi sorteado
     fun verificarSorteio(cpf: String, button: Button): String {
         button.isClickable = false
-        val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
-        val user = "zlhwkfxk"
-        val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
+        val url = "url"
+        val user = "user"
+        val password = "password"
 
         try {
             val connection: Connection = DriverManager.getConnection(url, user, password)
