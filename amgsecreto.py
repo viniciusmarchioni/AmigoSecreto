@@ -27,10 +27,10 @@ def verificar_cpf_valido(cpf):
 
 def sortear():
     conn = psycopg2.connect(
-        host="isabelle.db.elephantsql.com",
-        database="zlhwkfxk",
-        user="zlhwkfxk",
-        password="5H5djg3N01zMeTkRC3RmnZoFVo9Yia63",
+        host="host",
+        database="database",
+        user="user",
+        password="password",
     )
 
     # Criar um cursor
@@ -82,10 +82,10 @@ def sortear():
 def addParticipante(nome, cpf, desejo):
     # Conectar ao banco de dados
     conn = psycopg2.connect(
-        host="isabelle.db.elephantsql.com",
-        database="zlhwkfxk",
-        user="zlhwkfxk",
-        password="5H5djg3N01zMeTkRC3RmnZoFVo9Yia63",
+        host="host",
+        database="database",
+        user="user",
+        password="password",
     )
 
     nome = cortar_string(nome, 25)
