@@ -3,7 +3,18 @@
     <style name="Base.Theme.AmigoSecretoGuest" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimaryDark">@color/black</item>
     </style>
+
     <style name="Theme.AmigoSecretoGuest" parent="Base.Theme.AmigoSecretoGuest" />
+
+    <style name="image">
+        <item name="android:src">@drawable/account_circle_day</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">100dp</item>
+    </style>
+
+
     <style name="editTextStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -13,5 +24,19 @@
         <item name="android:maxLines">1</item>
         <item name="android:padding">12dp</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:minWidth">150dp</item>
+    </style>
+
+    <style name="ButtonStyle">
+        //android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#1F6AA4"
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="backgroundTint">@color/blue</item>
     </style>
 </resources>

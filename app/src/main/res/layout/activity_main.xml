@@ -2,45 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#242424">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:contentDescription="Image"
-        android:src="@drawable/account_circle" />
+        style="@style/image"
+        android:contentDescription="@string/image_Description" />
 
     <EditText
         android:id="@+id/cpf_edit"
         style="@style/editTextStyle"
         android:layout_below="@+id/image"
-        android:layout_centerHorizontal="true"
-        android:hint="CPF"
+        android:autofillHints=""
+        android:hint="@string/cpf_Text"
         android:inputType="number"
-        android:minWidth="150dp" />
+        android:maxLength="14" />
 
     <EditText
         android:id="@+id/nome_edit"
         style="@style/editTextStyle"
         android:layout_below="@+id/cpf_edit"
-        android:layout_centerHorizontal="true"
-        android:hint="Nome"
+        android:autofillHints=""
+        android:hint="@string/nome_Text"
         android:inputType="textPersonName"
-        android:minWidth="150dp" />
+        android:maxLength="25" />
 
     <EditText
         android:id="@+id/desejo_edit"
         style="@style/editTextStyle"
         android:layout_below="@+id/nome_edit"
-        android:layout_centerHorizontal="true"
+        android:autofillHints=""
+        android:hint="@string/desejo_Text"
         android:inputType="textPersonName"
-        android:hint="Desejo(s)"
-        android:minWidth="150dp" />
+        android:maxLength="35" />
 
     <TextView
         android:id="@+id/status"
@@ -56,23 +52,16 @@
 
     <Button
         android:id="@+id/cadastrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:layout_below="@+id/status"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#1F6AA4"
-        android:text="Cadastrar" />
+        android:text="@string/cadastrar_text" />
 
     <Button
         android:id="@+id/verificar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:layout_below="@+id/cadastrar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#1F6AA4"
-        android:text="Verificar sorteio" />
+        android:text="@string/verificar_Text" />
 
 
 </RelativeLayout>

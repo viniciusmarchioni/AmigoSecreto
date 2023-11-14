@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">amigoSecretoGuest</string>
+    <string name="cpf_Text">CPF</string>
+    <string name="nome_Text">Nome</string>
+    <string name="desejo_Text">Desejo(s)</string>
+    <string name="cadastrar_text">Cadastrar</string>
+    <string name="verificar_Text">Verificar sorteio</string>
+    <string name="image_Description">Image</string>
 </resources>

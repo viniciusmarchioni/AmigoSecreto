@@ -11,6 +11,13 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 class MainActivity : AppCompatActivity() {
+
+    //Acesso ao banco de dados
+    val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
+    val user = "zlhwkfxk"
+    val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,10 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun cadastro(cpf: EditText, nome: EditText, desejo: EditText, button: Button): String {
         button.isClickable = false
-        //Acesso ao banco de dados
-        val url = "url"
-        val user = "user"
-        val password = "password"
 
         //Verificações de entradas
         if (verificarString(cpf.text.toString(), 14, 5)) {
@@ -114,9 +117,11 @@ class MainActivity : AppCompatActivity() {
     //verifica quem foi sorteado
     fun verificarSorteio(cpf: String, button: Button): String {
         button.isClickable = false
-        val url = "url"
-        val user = "user"
-        val password = "password"
+
+        if(verificarString(cpf,14,5)){
+            button.isClickable = true
+            return "Cpf invalido"
+        }
 
         try {
             val connection: Connection = DriverManager.getConnection(url, user, password)
@@ -151,7 +156,7 @@ class MainActivity : AppCompatActivity() {
             button.isClickable = true
             return "Sorteio ainda não aconteceu"
         } catch (e: Exception) {
-            return "Algum erro na verificação de cadastro existente"
+            return "Algum erro na verificação de cadastro existente $e"
         }
     }
 }
