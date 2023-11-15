@@ -49,15 +49,15 @@ class MainActivity : AppCompatActivity() {
         //Verificações de entradas
         if (verificarString(cpf.text.toString(), 14, 5)) {
             button.isClickable = true
-            return "Cpf invalido"
+            return "CPF inválido."
         }
         if (verificarString(nome.text.toString(), 25, 2)) {
             button.isClickable = true
-            return "Nome não tamanho aceito"
+            return "Nome inválido."
         }
         if (verificarString(desejo.text.toString(), 255, 2)) {
             button.isClickable = true
-            return "Desejo não aceito"
+            return "Desejo não aceito."
         }
 
         //Tentativa de acesso
@@ -103,9 +103,8 @@ class MainActivity : AppCompatActivity() {
             return "Participante adicionado"
         } catch (e: Exception) {
             button.isClickable = true
-            return "Algo deu errado :(:\n $e"
+            return "Algo deu errado na inserção dos dados."
         }
-
     }
 
     //retorna verdadeiro se estiver dento do aceitavel pelo banco de dados
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
         if(verificarString(cpf,14,5)){
             button.isClickable = true
-            return "Cpf invalido"
+            return "CPF inválido."
         }
 
         try {
@@ -134,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 statement.close()
                 connection.close()
                 button.isClickable = true
-                return "Você não está cadastrado"
+                return "Você não está cadastrado."
             }
             //se está cadastrado mais uma query
             resultSet =
@@ -154,7 +153,7 @@ class MainActivity : AppCompatActivity() {
             statement.close()
             connection.close()
             button.isClickable = true
-            return "Sorteio ainda não aconteceu"
+            return "Sorteio ainda não aconteceu."
         } catch (e: Exception) {
             return "Algum erro na verificação de cadastro existente $e"
         }
