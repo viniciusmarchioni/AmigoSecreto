@@ -14,7 +14,7 @@ import java.sql.DriverManager
 class MainActivity : AppCompatActivity() {
 
 
-    lateinit var botaoinu:Button;
+    lateinit var botaoinu:Button
 
     //Acesso ao banco de dados
     val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
@@ -133,9 +133,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     //retorna verdadeiro se estiver dento do aceitavel pelo banco de dados
-    fun verificarString(str: String, Maxsize: Int, Minsize: Int): Boolean {
+    fun verificarString(str: String, maxSize: Int, minSize: Int): Boolean {
         // Verificar o comprimento da string
-        return str.length > Maxsize || str.length < Minsize
+        return str.length > maxSize || str.length < minSize
     }
 
     //verifica quem foi sorteado
