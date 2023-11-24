@@ -131,8 +131,6 @@ class CreateGameActivity : AppCompatActivity() {
             copyButton.isVisible = true
 
 
-
-
             return "Jogo Criado!\nSeu id é:\n$id"
 
         } catch (e: Exception) {

@@ -72,12 +72,24 @@ class MainActivity : AppCompatActivity() {
             button.isClickable = true
             return "Desejo não aceito."
         }
+        if (verificarString(id, 11, 9)) {
+            button.isClickable = true
+            return "ID inexistente."
+        }
 
         //Tentativa de acesso
         try {
             val connection: Connection = DriverManager.getConnection(url, user, password)
             val statement = connection.createStatement()
-            val resultSet =
+            var resultSet =
+                statement.executeQuery("select id_table from hosts where id_table = '$id'") // query
+            if (!resultSet.next()) {
+                statement.close()
+                connection.close()
+                return "Jogo não encontrado\nVerifique o ID"
+            }
+
+            resultSet =
                 statement.executeQuery("select nome from \"$id\" where cpf = '$cpf'") // query
             //Se tem um próximo então exite portanto...
             if (resultSet.next()) {
@@ -104,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             preparedStatement.setString(2, cpf)
             preparedStatement.setString(3, desejo)
 
-            val rowsAffected = preparedStatement.executeUpdate()
+            preparedStatement.executeUpdate()
 
             preparedStatement.close()
             statement.close()
