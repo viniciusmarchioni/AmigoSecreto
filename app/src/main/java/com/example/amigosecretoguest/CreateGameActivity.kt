@@ -59,7 +59,8 @@ class CreateGameActivity : AppCompatActivity() {
     }
 
 
-    fun createTable(
+    //Criar tabela do novo jogo
+    private fun createTable(
         cpf: String,
         nome: String,
         desejo: String,
@@ -68,7 +69,7 @@ class CreateGameActivity : AppCompatActivity() {
     ): String {
 
         button.isClickable = false
-
+        //verifica cpf
         if (MainActivity().verificarString(cpf, 14, 8)) {
             button.isClickable = true
             return "CPF inválido."
@@ -81,20 +82,11 @@ class CreateGameActivity : AppCompatActivity() {
                 MainActivity().password
             )
             val statement = connection.createStatement()
-            var resultSet =
-                statement.executeQuery("select cpf from hosts where cpf = '$cpf'")
-
-            //se tem próximo ele já tem sorteio, portanto tchau
-            if (resultSet.next()) {
-                statement.close()
-                connection.close()
-                button.isClickable = true
-                return "É possivel apenas 1 jogo por CPF."
-            }
-
+            statement.executeQuery("select cpf from hosts where cpf = '$cpf'")
+            //Gera chave e se ela não existe no host cria
             id = gerarChave()
             while (true) {
-                resultSet =
+                val resultSet =
                     statement.executeQuery("select id_table from hosts where id_table = '$id'")
                 if (!resultSet.next()) {
                     break
@@ -102,6 +94,7 @@ class CreateGameActivity : AppCompatActivity() {
                 id = gerarChave()
             }
 
+            //Insere nos hosts
             val sql = "INSERT INTO hosts (cpf, id_table) VALUES (?, ?)"
             val preparedStatement = connection.prepareStatement(sql)
 
@@ -112,7 +105,7 @@ class CreateGameActivity : AppCompatActivity() {
 
             preparedStatement.close()
 
-
+            //cria a tabela do jogo
             statement.executeUpdate(
                 "CREATE TABLE \"$id\"(id_guest serial not null," +
                         "nome varchar(25) not null,amigosecretoid int,cpf varchar(14)," +
@@ -120,13 +113,14 @@ class CreateGameActivity : AppCompatActivity() {
                         "primary key(id_guest))"
             )
 
-
+            //fecha conexão
             statement.close()
             connection.close()
 
+            //Cadastra na tabela criada
             MainActivity().cadastro(cpf, nome, desejo, button, id);
 
-
+            //liga o botão de copy
             copyButton.isClickable = true
             copyButton.isVisible = true
 
@@ -134,9 +128,10 @@ class CreateGameActivity : AppCompatActivity() {
             return "Jogo Criado!\nSeu id é:\n$id"
 
         } catch (e: Exception) {
-            if (e.toString().contains("23505")) {
+
+            if (e.toString().contains("unique")) {
                 button.isClickable = true
-                return "Apenas uma criação por CPF!"
+                return "Apenas uma criação por CPF"
             }
             button.isClickable = true
             return "Algum erro na criação: $e"
