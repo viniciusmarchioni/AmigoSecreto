@@ -1,5 +1,6 @@
 package com.example.amigosecretoguest
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
 import android.widget.Button
@@ -13,9 +14,9 @@ import java.sql.DriverManager
 class MainActivity : AppCompatActivity() {
 
     //Acesso ao banco de dados
-    val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
-    val user = "zlhwkfxk"
-    val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
+    val url = "url"
+    val user = "user"
+    val password = "password"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val cadButton = findViewById<Button>(R.id.cadastrar)
         val verButton = findViewById<Button>(R.id.verificar)
+        val troca = findViewById<Button>(R.id.troca)
         val status = findViewById<TextView>(R.id.status)
         val editCpf = findViewById<EditText>(R.id.cpf_edit)
         val editName = findViewById<EditText>(R.id.nome_edit)
@@ -41,7 +43,16 @@ class MainActivity : AppCompatActivity() {
         verButton.setOnClickListener {
             status.text = verificarSorteio(editCpf.text.toString(), verButton)
         }
+
+        troca.setOnClickListener {
+            val novaTela = Intent(this,CreateGameActivity::class.java)
+            startActivity(novaTela)
+        }
+
+
     }
+
+
 
     private fun cadastro(cpf: EditText, nome: EditText, desejo: EditText, button: Button): String {
         button.isClickable = false
@@ -108,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //retorna verdadeiro se estiver dento do aceitavel pelo banco de dados
-    private fun verificarString(str: String, Maxsize: Int, Minsize: Int): Boolean {
+    fun verificarString(str: String, Maxsize: Int, Minsize: Int): Boolean {
         // Verificar o comprimento da string
         return str.length > Maxsize || str.length < Minsize
     }

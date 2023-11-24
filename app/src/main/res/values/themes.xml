@@ -40,7 +40,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
         <item name="backgroundTint">@color/blue</item>
     </style>
 </resources>
