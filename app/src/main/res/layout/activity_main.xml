@@ -42,8 +42,7 @@
         android:layout_below="@+id/desejo_edit"
         android:autofillHints=""
         android:hint="ID do jogo"
-        android:inputType="numberDecimal"
-        android:maxLength="4" />
+        android:maxLength="11" />
 
     <TextView
         android:id="@+id/status"
@@ -69,7 +68,7 @@
         android:id="@+id/troca"
         style="@style/ButtonStyle"
         android:layout_below="@+id/verificar"
-        android:text="troca troca" />
+        android:text="Criar um jogo" />
 
 
 </RelativeLayout>

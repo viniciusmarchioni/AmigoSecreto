@@ -2,6 +2,7 @@ package com.example.amigosecretoguest
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
 import android.widget.Button
@@ -18,7 +19,7 @@ import java.util.Random
 
 class CreateGameActivity : AppCompatActivity() {
 
-    private lateinit var id:String
+    private lateinit var id: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_game)
@@ -33,12 +34,15 @@ class CreateGameActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.criar)
         val text = findViewById<TextView>(R.id.status)
         val copy = findViewById<ImageButton>(R.id.copy)
+        val join = findViewById<Button>(R.id.entrar)
 
         button.setOnClickListener {
-            text.text = createTable(cpfedit.text.toString(),button,copy)
+            text.text = createTable(
+                cpfedit.text.toString(), name.text.toString(), desejo.text.toString(), button, copy
+            )
         }
 
-        copy.setOnClickListener{
+        copy.setOnClickListener {
             val clipboardManager: ClipboardManager =
                 getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("Label", id)
@@ -47,10 +51,21 @@ class CreateGameActivity : AppCompatActivity() {
             Toast.makeText(this, "Copiado!", Toast.LENGTH_SHORT).show();
         }
 
+        join.setOnClickListener {
+            val novaTela = Intent(this,MainActivity::class.java)
+            startActivity(novaTela)
+        }
+
     }
 
 
-    fun createTable(cpf:String, button:Button,copyButton: ImageButton):String{
+    fun createTable(
+        cpf: String,
+        nome: String,
+        desejo: String,
+        button: Button,
+        copyButton: ImageButton
+    ): String {
 
         button.isClickable = false
 
@@ -60,7 +75,11 @@ class CreateGameActivity : AppCompatActivity() {
         }
 
         try {
-            val connection: Connection = DriverManager.getConnection(MainActivity().url, MainActivity().user, MainActivity().password)
+            val connection: Connection = DriverManager.getConnection(
+                MainActivity().url,
+                MainActivity().user,
+                MainActivity().password
+            )
             val statement = connection.createStatement()
             var resultSet =
                 statement.executeQuery("select cpf from hosts where cpf = '$cpf'")
@@ -74,10 +93,10 @@ class CreateGameActivity : AppCompatActivity() {
             }
 
             id = gerarChave()
-            while (true){
+            while (true) {
                 resultSet =
                     statement.executeQuery("select id_table from hosts where id_table = '$id'")
-                if (!resultSet.next()){
+                if (!resultSet.next()) {
                     break
                 }
                 id = gerarChave()
@@ -94,23 +113,30 @@ class CreateGameActivity : AppCompatActivity() {
             preparedStatement.close()
 
 
-            statement.executeUpdate("CREATE TABLE \"$id\"(id_guest serial not null," +
+            statement.executeUpdate(
+                "CREATE TABLE \"$id\"(id_guest serial not null," +
                         "nome varchar(25) not null,amigosecretoid int,cpf varchar(14)," +
                         "desejo varchar(255)," +
-                        "primary key(id_guest))")
+                        "primary key(id_guest))"
+            )
 
 
             statement.close()
             connection.close()
 
+            MainActivity().cadastro(cpf, nome, desejo, button, id);
+
 
             copyButton.isClickable = true
             copyButton.isVisible = true
 
+
+
+
             return "Jogo Criado!\nSeu id é:\n$id"
 
         } catch (e: Exception) {
-            if(e.toString().contains("23505")){
+            if (e.toString().contains("23505")) {
                 button.isClickable = true
                 return "Apenas uma criação por CPF!"
             }
@@ -120,11 +146,11 @@ class CreateGameActivity : AppCompatActivity() {
 
     }
 
-    private fun gerarChave():String{
+    private fun gerarChave(): String {
 
         var key = ""
 
-        for(i in 1..10){
+        for (i in 1..10) {
             val numeroAleatorio = Random().nextInt(90 - 60 + 1) + 60
             key += numeroAleatorio.toChar()
         }

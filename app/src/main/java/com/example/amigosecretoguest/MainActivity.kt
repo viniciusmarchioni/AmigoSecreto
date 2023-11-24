@@ -13,10 +13,13 @@ import java.sql.DriverManager
 
 class MainActivity : AppCompatActivity() {
 
+
+    lateinit var botaoinu:Button;
+
     //Acesso ao banco de dados
-    val url = "url"
-    val user = "user"
-    val password = "password"
+    val url = "jdbc:postgresql://isabelle.db.elephantsql.com:5432/zlhwkfxk"
+    val user = "zlhwkfxk"
+    val password = "5H5djg3N01zMeTkRC3RmnZoFVo9Yia63"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,14 +37,16 @@ class MainActivity : AppCompatActivity() {
         val editCpf = findViewById<EditText>(R.id.cpf_edit)
         val editName = findViewById<EditText>(R.id.nome_edit)
         val editDesejo = findViewById<EditText>(R.id.desejo_edit)
+        val id = findViewById<EditText>(R.id.gameId)
 
         cadButton.setOnClickListener {
             status.text = cadastro(
-                editCpf, editName, editDesejo, cadButton
-            )
+                editCpf.text.toString(), editName.text.toString(), editDesejo.text.toString(),
+                cadButton, id.text.toString())
         }
+
         verButton.setOnClickListener {
-            status.text = verificarSorteio(editCpf.text.toString(), verButton)
+            status.text = verificarSorteio(editCpf.text.toString(), verButton, id.text.toString())
         }
 
         troca.setOnClickListener {
@@ -49,24 +54,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(novaTela)
         }
 
-
     }
 
-
-
-    private fun cadastro(cpf: EditText, nome: EditText, desejo: EditText, button: Button): String {
+    fun cadastro(cpf: String, nome: String, desejo: String, button: Button, id:String): String {
         button.isClickable = false
 
         //Verificações de entradas
-        if (verificarString(cpf.text.toString(), 14, 5)) {
+        if (verificarString(cpf, 14, 5)) {
             button.isClickable = true
             return "CPF inválido."
         }
-        if (verificarString(nome.text.toString(), 25, 2)) {
+        if (verificarString(nome, 25, 2)) {
             button.isClickable = true
             return "Nome inválido."
         }
-        if (verificarString(desejo.text.toString(), 255, 2)) {
+        if (verificarString(desejo, 255, 2)) {
             button.isClickable = true
             return "Desejo não aceito."
         }
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             val connection: Connection = DriverManager.getConnection(url, user, password)
             val statement = connection.createStatement()
             val resultSet =
-                statement.executeQuery("select nome from participantes where cpf = '${cpf.text.toString()}'") // query
+                statement.executeQuery("select nome from \"$id\" where cpf = '$cpf'") // query
             //Se tem um próximo então exite portanto...
             if (resultSet.next()) {
                 val name = resultSet.getString("nome")
@@ -95,12 +97,12 @@ class MainActivity : AppCompatActivity() {
         try {
             val connection: Connection = DriverManager.getConnection(url, user, password)
             val statement = connection.createStatement()
-            val sql = "INSERT INTO participantes (nome, cpf, desejo) VALUES (?, ?, ?)"
+            val sql = "INSERT INTO \"$id\" (nome, cpf, desejo) VALUES (?, ?, ?)"
             val preparedStatement = connection.prepareStatement(sql)
 
-            preparedStatement.setString(1, nome.text.toString())
-            preparedStatement.setString(2, cpf.text.toString())
-            preparedStatement.setString(3, desejo.text.toString())
+            preparedStatement.setString(1, nome)
+            preparedStatement.setString(2, cpf)
+            preparedStatement.setString(3, desejo)
 
             val rowsAffected = preparedStatement.executeUpdate()
 
@@ -125,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //verifica quem foi sorteado
-    fun verificarSorteio(cpf: String, button: Button): String {
+    private fun verificarSorteio(cpf: String, button: Button,id: String): String {
         button.isClickable = false
 
         if(verificarString(cpf,14,5)){
@@ -137,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             val connection: Connection = DriverManager.getConnection(url, user, password)
             val statement = connection.createStatement()
             var resultSet =
-                statement.executeQuery("select nome from participantes where cpf = '$cpf'")
+                statement.executeQuery("select nome from \"$id\" where cpf = '$cpf'")
 
             //se não tem próximo ele não está cadastrado portanto não tem ngm para sortear
             if (!resultSet.next()) {
@@ -148,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             }
             //se está cadastrado mais uma query
             resultSet =
-                statement.executeQuery("select nome, desejo from participantes where id = (select amigosecretoid from participantes where cpf = '$cpf');")
+                statement.executeQuery("select nome, desejo from \"$id\" where id_guest = (select amigosecretoid from \"$id\" where cpf = '$cpf');")
 
             //se resultar em algo, retornar valores
             if (resultSet.next()) {
