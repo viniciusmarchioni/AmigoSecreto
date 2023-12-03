@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.StrictMode
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -15,19 +14,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.amigosecretoguest.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.sql.Connection
-import java.sql.DriverManager
-import java.util.Random
 
 
 class CreateGameActivity : AppCompatActivity() {
 
     private lateinit var id: String
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +38,14 @@ class CreateGameActivity : AppCompatActivity() {
         val status = findViewById<TextView>(R.id.status)
         val copy = findViewById<ImageButton>(R.id.copy)
         val join = findViewById<Button>(R.id.entrar)
+
+        //config retrofit
+        val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+
+
+        //Chama a interface no mesmo tipo da classe requerida pela api
+        val create = retrofit.create(request::class.java)
 
 
         createButton.setOnClickListener {
@@ -58,23 +64,12 @@ class CreateGameActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val obj =
-                User("", name.text.toString(), cpfedit.text.toString(), desejo.text.toString())
-
-
-            //config retrofit
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-
-            //Chama a interface no mesmo tipo da classe requerida pela api
-            val create = retrofit.create(request::class.java)
-
-
             //chama função da interface
-            val call: Call<User> = create.createGame(obj)
+            val call: Call<User> = create.createGame(
+                User(
+                    "", name.text.toString(), cpfedit.text.toString(), desejo.text.toString()
+                )
+            )
 
 
             //roda em segundo plano
@@ -84,14 +79,13 @@ class CreateGameActivity : AppCompatActivity() {
                     //volta para primeiro plano
                     Handler(Looper.getMainLooper()).post {
 
-                        // Exemplo de alteração na UI
-                        status.text = response.body()?.response
-
-                        if ("Jogo criado" !in response.body()!!.response) {
+                        if ("200" !in response.body()!!.response) {
+                            status.text = response.body()?.response
                             it.isClickable = true
                             return@post
                         }
                         id = response.body()!!.tableID
+                        status.text = "Jogo Criado\nO ID da sua sessão é:\n$id"
                         copy.isVisible = true
                         copy.isClickable = true
                         it.isVisible = false
@@ -114,15 +108,14 @@ class CreateGameActivity : AppCompatActivity() {
         copy.setOnClickListener {
             val clipboardManager: ClipboardManager =
                 getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("Label",id)
+            val clipData = ClipData.newPlainText("Label", id)
             clipboardManager.setPrimaryClip(clipData)
 
-            Toast.makeText(this, "Copiado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Copiado!", Toast.LENGTH_SHORT).show()
         }
 
         join.setOnClickListener {
-            val novaTela = Intent(this, MainActivity::class.java)
-            startActivity(novaTela)
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 

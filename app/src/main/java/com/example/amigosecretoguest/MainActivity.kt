@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.amigosecretoguest.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,47 +32,48 @@ class MainActivity : AppCompatActivity() {
         val editDesejo = findViewById<EditText>(R.id.desejo_edit)
         val editId = findViewById<EditText>(R.id.gameId)
 
+        //config retrofit
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:5000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        //Chama a interface no mesmo tipo da classe requerida pela api
+        val create = retrofit.create(request::class.java)
+
+
+
         cadButton.setOnClickListener {
+
             it.isClickable = false
-            if (!verify(editCpf.text.toString(), 11, 14)) {
+            if (verify(editCpf.text.toString(), 11, 14)) {
                 status.text = "CPF inválido."
-                cadButton.isClickable = true
+                it.isClickable = true
                 return@setOnClickListener
-            } else if (!verify(editName.text.toString(), 2, 20)) {
+            } else if (verify(editName.text.toString(), 2, 20)) {
                 status.text = "Nome inválido."
-                cadButton.isClickable = true
+                it.isClickable = true
                 return@setOnClickListener
-            } else if (!verify(editDesejo.text.toString(), 5, 255)) {
+            } else if (verify(editDesejo.text.toString(), 5, 255)) {
                 status.text = "Desejo inválido."
-                cadButton.isClickable = true
+                it.isClickable = true
                 return@setOnClickListener
-            } else if (!verify(editId.text.toString(), 10, 10)) {
+            } else if (verify(editId.text.toString(), 10, 10)) {
                 status.text = "ID de jogo não encontrado."
-                cadButton.isClickable = true
+                it.isClickable = true
                 return@setOnClickListener
             }
 
-            val obj = User(
-                editId.text.toString(),
-                editName.text.toString(),
-                editCpf.text.toString(),
-                editDesejo.text.toString()
-            )
-
-
-            //config retrofit
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-
-            //Chama a interface no mesmo tipo da classe requerida pela api
-            val create = retrofit.create(request::class.java)
-
 
             //chama função da interface
-            val call: Call<User> = create.addGuest(obj)
+            val call: Call<User> = create.addGuest(
+                User(
+                    editId.text.toString(),
+                    editName.text.toString(),
+                    editCpf.text.toString(),
+                    editDesejo.text.toString()
+                )
+            )
 
 
             //roda em segundo plano
@@ -81,14 +83,13 @@ class MainActivity : AppCompatActivity() {
                     //volta para primeiro plano
                     Handler(Looper.getMainLooper()).post {
 
-                        // Exemplo de alteração na UI
-                        status.text = response.body()?.response
+                        if ("200" !in response.body()!!.response) {
 
-                        if ("Tudo certo" !in response.body()!!.response) {
-                            cadButton.isClickable = true
+                            status.text = response.body()?.response
+                            it.isClickable = true
                             return@post
-                        }
 
+                        }
                         it.isVisible = false
                     }
                 }
@@ -114,16 +115,6 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-
-            //Chama a interface no mesmo tipo da classe requerida pela api
-            val create = retrofit.create(request::class.java)
-
-
             //chama função da interface
             val call: Call<User> =
                 create.obterSorteio(
@@ -138,11 +129,18 @@ class MainActivity : AppCompatActivity() {
             call.enqueue(object : Callback<User> {
                 @SuppressLint("SetTextI18n")
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    it.isClickable = false
+
+
+                    if("200" !in response.body()!!.response){
+                        status.text = response.body()!!.response
+                        return
+                    }
                     it.isVisible = false
-                    status.text = "Você tirou o(a)${response.body()!!.nome}\nE ele(a) deseja ${response.body()!!.desejo}"
+                    status.text =
+                        "Você tirou o(a)${response.body()!!.nome}\nE ele(a) deseja ${response.body()!!.desejo}"
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     it.isClickable = true
                     status.text = "Ocorreu um erro:\n$t"
@@ -153,17 +151,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         troca.setOnClickListener {
-            val novaTela = Intent(this, CreateGameActivity::class.java)
-            startActivity(novaTela)
+            startActivity(Intent(this, CreateGameActivity::class.java))
         }
 
     }
 
+
     fun verify(editText: String, min: Int, max: Int): Boolean {
         if (editText.length < min || editText.length > max) {
-            return false
+            return true
         }
-        return true
+        return false
     }
 
 }
