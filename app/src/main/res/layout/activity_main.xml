@@ -48,6 +48,7 @@
         android:id="@+id/status"
         android:layout_below="@+id/gameId"
         style="@style/text"
+        android:textAlignment="center"
         android:text=""
         />
 

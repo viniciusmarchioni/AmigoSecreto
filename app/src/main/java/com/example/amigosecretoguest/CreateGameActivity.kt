@@ -28,13 +28,10 @@ import java.util.Random
 class CreateGameActivity : AppCompatActivity() {
 
     private lateinit var id: String
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_game)
-
-        //precisa disso para acessar o banco não sei pq
-        val threadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(threadPolicy)
 
         val cpfedit = findViewById<EditText>(R.id.cpf_edit)
         val name = findViewById<EditText>(R.id.nome_edit)
@@ -94,7 +91,7 @@ class CreateGameActivity : AppCompatActivity() {
                             it.isClickable = true
                             return@post
                         }
-                        id = response.body()!!.tableID.toString()
+                        id = response.body()!!.tableID
                         copy.isVisible = true
                         copy.isClickable = true
                         it.isVisible = false
@@ -114,9 +111,6 @@ class CreateGameActivity : AppCompatActivity() {
         }
 
 
-
-
-
         copy.setOnClickListener {
             val clipboardManager: ClipboardManager =
                 getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -130,7 +124,6 @@ class CreateGameActivity : AppCompatActivity() {
             val novaTela = Intent(this, MainActivity::class.java)
             startActivity(novaTela)
         }
-
     }
 
 }

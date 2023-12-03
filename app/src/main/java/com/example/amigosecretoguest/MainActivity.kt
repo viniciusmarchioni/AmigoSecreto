@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val editId = findViewById<EditText>(R.id.gameId)
 
         cadButton.setOnClickListener {
-            cadButton.isClickable = false
+            it.isClickable = false
             if (!verify(editCpf.text.toString(), 11, 14)) {
                 status.text = "CPF inválido."
                 cadButton.isClickable = true
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                             return@post
                         }
 
-                        cadButton.isVisible = false
+                        it.isVisible = false
                     }
                 }
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     status.text = "Erro!\n$t"
                     Handler(Looper.getMainLooper()).post {
-                        cadButton.isClickable = true
+                        it.isClickable = true
                     }
                 }
 
@@ -107,6 +107,48 @@ class MainActivity : AppCompatActivity() {
         }
 
         verButton.setOnClickListener {
+            it.isClickable = false
+            if (!verify(editCpf.text.toString(), 11, 14)) {
+                status.text = "CPF inválido."
+                it.isClickable = true
+                return@setOnClickListener
+            }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+
+            //Chama a interface no mesmo tipo da classe requerida pela api
+            val create = retrofit.create(request::class.java)
+
+
+            //chama função da interface
+            val call: Call<User> =
+                create.obterSorteio(
+                    User(
+                        editId.text.toString(),
+                        editName.text.toString(),
+                        editCpf.text.toString(),
+                        editDesejo.text.toString()
+                    )
+                )
+
+            call.enqueue(object : Callback<User> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    it.isClickable = false
+                    it.isVisible = false
+                    status.text = "Você tirou o(a)${response.body()!!.nome}\nE ele(a) deseja ${response.body()!!.desejo}"
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    it.isClickable = true
+                    status.text = "Ocorreu um erro:\n$t"
+                }
+            })
+
 
         }
 
