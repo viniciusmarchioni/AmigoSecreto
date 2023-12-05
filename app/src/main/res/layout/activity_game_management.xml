@@ -22,17 +22,17 @@
         android:hint="CPF" />
 
     <Button
-        android:id="@+id/verjogosbutton"
+        android:id="@+id/versessoesbutton"
         style="@style/ButtonStyle"
         android:layout_below="@+id/editcpf"
         android:layout_centerHorizontal="true"
-        android:text="Ver Jogos" />
+        android:text="Ver sessões" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/verjogosbutton"
+        android:layout_below="@+id/versessoesbutton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text=""

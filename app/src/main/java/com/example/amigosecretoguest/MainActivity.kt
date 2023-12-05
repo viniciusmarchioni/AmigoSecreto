@@ -26,11 +26,17 @@ class MainActivity : AppCompatActivity() {
         val cadButton = findViewById<Button>(R.id.cadastrar)
         val verButton = findViewById<Button>(R.id.verificar)
         val troca = findViewById<Button>(R.id.troca)
+        val ger = findViewById<Button>(R.id.gerenciar)
         val status = findViewById<TextView>(R.id.status)
         val editCpf = findViewById<EditText>(R.id.cpf_edit)
         val editName = findViewById<EditText>(R.id.nome_edit)
         val editDesejo = findViewById<EditText>(R.id.desejo_edit)
         val editId = findViewById<EditText>(R.id.gameId)
+
+        ger.setOnClickListener {
+            startActivity(Intent(this, activity_game_management::class.java))
+        }
+
 
         //config retrofit
         val retrofit = Retrofit.Builder()
@@ -80,26 +86,33 @@ class MainActivity : AppCompatActivity() {
             call.enqueue(object : Callback<User> {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
+                    //#001-tbid/002-cpf/003-nome/004-desejo/005-cad/
                     //volta para primeiro plano
-                    Handler(Looper.getMainLooper()).post {
 
-                        if ("200" !in response.body()!!.response) {
-
-                            status.text = response.body()?.response
-                            it.isClickable = true
-                            return@post
-
-                        }
+                    if ("200" in response.body()!!.response) {
+                        status.text = "Cadastro realizado!"
+                        it.isClickable = false
                         it.isVisible = false
+                        return
                     }
+
+
+                    when (response.body()!!.response) {
+
+                        "001" -> status.text = "Sessão não encontrada."
+                        "002" -> status.text = "Servidor:\nCPF inválido."
+                        "003" -> status.text = "Servidor:\nNome inválido."
+                        "004" -> status.text = "Servidor:\nDesejo inválido."
+                        "005" -> status.text = "Você já está cadastrado."
+
+                    }
+                    it.isClickable = true
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     status.text = "Erro!\n$t"
-                    Handler(Looper.getMainLooper()).post {
-                        it.isClickable = true
-                    }
+                    it.isClickable = true
                 }
 
             })
@@ -109,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
         verButton.setOnClickListener {
             it.isClickable = false
-            if (!verify(editCpf.text.toString(), 11, 14)) {
+            if (verify(editCpf.text.toString(), 11, 14)) {
                 status.text = "CPF inválido."
                 it.isClickable = true
                 return@setOnClickListener
@@ -129,15 +142,26 @@ class MainActivity : AppCompatActivity() {
             call.enqueue(object : Callback<User> {
                 @SuppressLint("SetTextI18n")
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-
-
-                    if("200" !in response.body()!!.response){
-                        status.text = response.body()!!.response
+                    //   #001-cpf/002-tableid/003-ncad/004-naconteceu
+                    if ("200" in response.body()!!.response) {
+                        status.text =
+                            "Você tirou o(a) ${response.body()!!.nome}\n" +
+                                    "e ele(a) deseja ${response.body()!!.desejo}"
+                        it.isClickable = false
+                        it.isVisible = false
                         return
                     }
-                    it.isVisible = false
-                    status.text =
-                        "Você tirou o(a)${response.body()!!.nome}\nE ele(a) deseja ${response.body()!!.desejo}"
+
+
+                    when (response.body()!!.response) {
+
+                        "001" -> status.text = "Servidor: CPF inválido."
+                        "002" -> status.text = "Servidor: Sessão não encontrada"
+                        "003" -> status.text = "Você não está cadastrado na sessão."
+                        "004" -> status.text = "O sorteio ainda não aconteceu."
+
+                    }
+                    it.isClickable = true
                 }
 
                 @SuppressLint("SetTextI18n")

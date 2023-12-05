@@ -21,13 +21,13 @@
             android:name=".ModularLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_game_management"
             android:exported="false" />
         <activity
             android:name=".CreateGameActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_game_management"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

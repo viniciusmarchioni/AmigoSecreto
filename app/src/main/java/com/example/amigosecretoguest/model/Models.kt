@@ -10,7 +10,7 @@ data class User (
 
 )
 
-data class Sessoes (
+data class GetSessoes (
 
     val cpf: String,
     val sessoes: MutableList<String> = mutableListOf(),
@@ -18,6 +18,12 @@ data class Sessoes (
 
 )
 
-data class Game (
-    val gameID: String
+data class Sessao (
+    val sessionID: String
+)
+
+data class apagar (
+    val decisao: Boolean,
+    val sessaoid: String,
+    val response: Boolean = false
 )

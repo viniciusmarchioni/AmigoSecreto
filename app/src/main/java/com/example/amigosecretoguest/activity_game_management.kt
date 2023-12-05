@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amigosecretoguest.adapter.AdapterGame
-import com.example.amigosecretoguest.model.Game
-import com.example.amigosecretoguest.model.Sessoes
+import com.example.amigosecretoguest.model.GetSessoes
+import com.example.amigosecretoguest.model.Sessao
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +23,7 @@ class activity_game_management() : AppCompatActivity() {
         setContentView(R.layout.activity_game_management)
 
         val recyclerview = findViewById<RecyclerView>(R.id.Recycle)
-        val buttoncpf = findViewById<Button>(R.id.verjogosbutton)
+        val sessoesbut = findViewById<Button>(R.id.versessoesbutton)
         val cpf = findViewById<EditText>(R.id.editcpf)
         val status = findViewById<TextView>(R.id.status)
         recyclerview.layoutManager = LinearLayoutManager(this)
@@ -31,7 +31,7 @@ class activity_game_management() : AppCompatActivity() {
 
 
         //Config Adapter
-        val listadeJogos: MutableList<Game> = mutableListOf()
+        val listadeJogos: MutableList<Sessao> = mutableListOf()
         recyclerview.adapter = AdapterGame(this, listadeJogos)
 
         //config retrofit
@@ -45,26 +45,26 @@ class activity_game_management() : AppCompatActivity() {
 
 
 
-        buttoncpf.setOnClickListener {
+        sessoesbut.setOnClickListener {
             it.isClickable = false
-            if (!MainActivity().verify(cpf.text.toString(), 11, 14)) {
+            if (MainActivity().verify(cpf.text.toString(), 11, 14)) {
                 status.text = "CPF inválido!"
                 it.isClickable = true
                 return@setOnClickListener
             }
 
-            val call: Call<Sessoes> =
-                create.pegarSessao(Sessoes(cpf.text.toString()))
+            val call: Call<GetSessoes> =
+                create.pegarSessao(GetSessoes(cpf.text.toString()))
 
-            call.enqueue(object : Callback<Sessoes> {
+            call.enqueue(object : Callback<GetSessoes> {
 
-                override fun onResponse(call: Call<Sessoes>, response: Response<Sessoes>) {
+                override fun onResponse(call: Call<GetSessoes>, response: Response<GetSessoes>) {
                     //comparação de resposta
                     when (response.body()!!.response) {
                         "200" -> { //Tudo certo
                             status.text = ""
                             for (i in response.body()!!.sessoes) {
-                                listadeJogos.add(Game(i))
+                                listadeJogos.add(Sessao(i))
                             }
                             it.isVisible = false
                         }
@@ -81,7 +81,7 @@ class activity_game_management() : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Sessoes>, t: Throwable) {
+                override fun onFailure(call: Call<GetSessoes>, t: Throwable) {
                     it.isClickable = true
                     status.text = "Erro:\n$t"
                 }

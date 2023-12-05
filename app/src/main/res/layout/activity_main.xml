@@ -44,6 +44,11 @@
         android:hint="ID do jogo"
         android:maxLength="11" />
 
+    <Button
+        android:id="@+id/gerenciar"
+        style="@style/ButtonStyle"
+        android:text="Gerenciar" />
+
     <TextView
         android:id="@+id/status"
         android:layout_below="@+id/gameId"

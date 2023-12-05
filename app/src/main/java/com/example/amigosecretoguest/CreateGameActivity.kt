@@ -50,15 +50,15 @@ class CreateGameActivity : AppCompatActivity() {
 
         createButton.setOnClickListener {
             it.isClickable = false
-            if (!MainActivity().verify(cpfedit.text.toString(), 11, 14)) {
+            if (MainActivity().verify(cpfedit.text.toString(), 2, 14)) {
                 status.text = "CPF inválido"
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (!MainActivity().verify(name.text.toString(), 2, 20)) {
+            } else if (MainActivity().verify(name.text.toString(), 2, 20)) {
                 status.text = "Nome inválido"
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (!MainActivity().verify(desejo.text.toString(), 5, 255)) {
+            } else if (MainActivity().verify(desejo.text.toString(), 5, 255)) {
                 status.text = "Desejo inválido"
                 it.isClickable = true
                 return@setOnClickListener

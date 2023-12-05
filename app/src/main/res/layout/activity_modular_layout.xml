@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,19 +9,80 @@
         android:id="@+id/texto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TITULO"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        />
+        android:text="ID da sessão"
+        android:textSize="30sp" />
 
     <Button
+        android:id="@+id/deletar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/texto"
-        android:text="Deletar Sessão"
-        android:backgroundTint="#AE2929"
-        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#AE2929"
+        android:text="Deletar Sessão" />
+
+    <Button
+        android:id="@+id/sortear"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/deletar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Sortear" />
+
+    <RelativeLayout
+        android:id="@+id/layoutdelete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparencyBlack"
+        android:visibility="invisible"
+        android:clickable="false"
+        >
+
+        <TextView
+            android:id="@+id/textDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"
+            android:text="Deseja deletar a sessão?\nEsta ação não poderá ser desfeita"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/simButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textDelete"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/red"
+            android:layout_marginStart="100dp"
+            android:text="Sim" />
+
+        <Button
+            android:id="@+id/naoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textDelete"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/blue"
+            android:layout_toEndOf="@+id/simButton"
+            android:text="Não" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        style="@style/text"
+        android:layout_below="@+id/sortear"
         />
+
 </RelativeLayout>

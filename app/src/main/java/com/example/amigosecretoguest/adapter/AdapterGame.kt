@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.amigosecretoguest.R
 import android.content.Context
 import android.content.Intent
-import com.example.amigosecretoguest.model.Game
 import com.example.amigosecretoguest.ModularLayoutActivity
+import com.example.amigosecretoguest.model.Sessao
 
-class AdapterGame(private val context: Context, private val games: MutableList<Game>) :
+class AdapterGame(private val context: Context, private val games: MutableList<Sessao>) :
     RecyclerView.Adapter<AdapterGame.GameViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
@@ -23,7 +23,7 @@ class AdapterGame(private val context: Context, private val games: MutableList<G
     override fun getItemCount(): Int = games.size
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        holder.buttonGameID.text = games[position].gameID
+        holder.buttonGameID.text = games[position].sessionID
         holder.buttonGameID.setOnClickListener {
             val novaTela = Intent(context, ModularLayoutActivity::class.java)
             novaTela.putExtra("titulo", holder.buttonGameID.text)
