@@ -19,7 +19,8 @@ data class GetSessoes (
 )
 
 data class Sessao (
-    val sessionID: String
+    val sessionID: String,
+    val quant: Int = 0
 )
 
 data class apagar (

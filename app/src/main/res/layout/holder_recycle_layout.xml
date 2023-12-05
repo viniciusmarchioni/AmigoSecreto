@@ -15,6 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+    <TextView
+        android:id="@+id/qntparticipantes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/gameidbutton"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Participantes:\n0"
+        android:textAlignment="center"
+        android:textColor="@color/hintNightColor"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
