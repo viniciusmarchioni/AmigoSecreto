@@ -7,7 +7,6 @@
     <style name="Theme.AmigoSecretoGuest" parent="Base.Theme.AmigoSecretoGuest" />
 
     <style name="image">
-        <item name="android:src">@drawable/account_circle_day</item>
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">150dp</item>
         <item name="android:layout_centerHorizontal">true</item>

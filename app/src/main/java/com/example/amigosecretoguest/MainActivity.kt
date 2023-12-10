@@ -7,9 +7,11 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.example.amigosecretoguest.model.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,164 +24,60 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setFragment(Home())
 
-        val cadButton = findViewById<Button>(R.id.cadastrar)
-        val verButton = findViewById<Button>(R.id.verificar)
-        val troca = findViewById<Button>(R.id.troca)
-        val ger = findViewById<Button>(R.id.gerenciar)
-        val status = findViewById<TextView>(R.id.status)
-        val editCpf = findViewById<EditText>(R.id.cpf_edit)
-        val editName = findViewById<EditText>(R.id.nome_edit)
-        val editDesejo = findViewById<EditText>(R.id.desejo_edit)
-        val editId = findViewById<EditText>(R.id.gameId)
-
-        ger.setOnClickListener {
-            startActivity(Intent(this, activity_game_management::class.java))
-        }
+        val registrar = findViewById<ImageButton>(R.id.cadastrar)
+        val criar = findViewById<ImageButton>(R.id.criar)
+        val gerenciar = findViewById<ImageButton>(R.id.gerenciar)
 
 
-        //config retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        //Chama a interface no mesmo tipo da classe requerida pela api
-        val create = retrofit.create(request::class.java)
-
-
-
-        cadButton.setOnClickListener {
-
+        registrar.setOnClickListener {
             it.isClickable = false
-            if (verify(editCpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido."
-                it.isClickable = true
-                return@setOnClickListener
-            } else if (verify(editName.text.toString(), 2, 20)) {
-                status.text = "Nome inválido."
-                it.isClickable = true
-                return@setOnClickListener
-            } else if (verify(editDesejo.text.toString(), 5, 255)) {
-                status.text = "Desejo inválido."
-                it.isClickable = true
-                return@setOnClickListener
-            } else if (verify(editId.text.toString(), 10, 10)) {
-                status.text = "ID de jogo não encontrado."
-                it.isClickable = true
-                return@setOnClickListener
-            }
-
-
-            //chama função da interface
-            val call: Call<User> = create.addGuest(
-                User(
-                    editId.text.toString(),
-                    editName.text.toString(),
-                    editCpf.text.toString(),
-                    editDesejo.text.toString()
-                )
-            )
-
-
-            //roda em segundo plano
-            call.enqueue(object : Callback<User> {
-
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    //#001-tbid/002-cpf/003-nome/004-desejo/005-cad/
-                    //volta para primeiro plano
-
-                    if ("200" in response.body()!!.response) {
-                        status.text = "Cadastro realizado!"
-                        it.isClickable = false
-                        it.isVisible = false
-                        return
-                    }
-
-
-                    when (response.body()!!.response) {
-
-                        "001" -> status.text = "Sessão não encontrada."
-                        "002" -> status.text = "Servidor:\nCPF inválido."
-                        "003" -> status.text = "Servidor:\nNome inválido."
-                        "004" -> status.text = "Servidor:\nDesejo inválido."
-                        "005" -> status.text = "Você já está cadastrado."
-
-                    }
-                    it.isClickable = true
-                }
-
-                @SuppressLint("SetTextI18n")
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    status.text = "Erro!\n$t"
-                    it.isClickable = true
-                }
-
-            })
-
-
+            criar.isClickable = true
+            gerenciar.isClickable = true
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.entry_left_to_right, R.anim.exit_left_to_right)
+                .replace(R.id.frame, Home())
+                .commit()
         }
-
-        verButton.setOnClickListener {
+        criar.setOnClickListener {
             it.isClickable = false
-            if (verify(editCpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido."
-                it.isClickable = true
-                return@setOnClickListener
+            registrar.isClickable = true
+            gerenciar.isClickable = true
+            if (supportFragmentManager.findFragmentById(R.id.frame) is Home) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.entry_right_to_left, R.anim.exit_right_to_left)
+                    .replace(R.id.frame, CreateSession())
+                    .commit()
+            } else {
+                supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.entry_left_to_right, R.anim.exit_left_to_right)
+                    .replace(R.id.frame, CreateSession())
+                    .commit()
             }
-
-            //chama função da interface
-            val call: Call<User> =
-                create.obterSorteio(
-                    User(
-                        editId.text.toString(),
-                        editName.text.toString(),
-                        editCpf.text.toString(),
-                        editDesejo.text.toString()
-                    )
-                )
-
-            call.enqueue(object : Callback<User> {
-                @SuppressLint("SetTextI18n")
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    //   #001-cpf/002-tableid/003-ncad/004-naconteceu
-                    if ("200" in response.body()!!.response) {
-                        status.text =
-                            "Você tirou o(a) ${response.body()!!.nome}\n" +
-                                    "e ele(a) deseja ${response.body()!!.desejo}"
-                        it.isClickable = false
-                        it.isVisible = false
-                        return
-                    }
-
-
-                    when (response.body()!!.response) {
-
-                        "001" -> status.text = "Servidor: CPF inválido."
-                        "002" -> status.text = "Servidor: Sessão não encontrada"
-                        "003" -> status.text = "Você não está cadastrado na sessão."
-                        "004" -> status.text = "O sorteio ainda não aconteceu."
-
-                    }
-                    it.isClickable = true
-                }
-
-                @SuppressLint("SetTextI18n")
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    it.isClickable = true
-                    status.text = "Ocorreu um erro:\n$t"
-                }
-            })
-
-
         }
 
-        troca.setOnClickListener {
-            startActivity(Intent(this, CreateGameActivity::class.java))
+        gerenciar.setOnClickListener {
+            it.isClickable = false
+            registrar.isClickable = true
+            criar.isClickable = true
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.entry_right_to_left, R.anim.exit_right_to_left)
+                .replace(R.id.frame, ManagementSession())
+                .commit()
         }
 
     }
 
+    private fun setFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame, fragment)
+        fragmentTransaction.commit()
+    }
 
     fun verify(editText: String, min: Int, max: Int): Boolean {
         if (editText.length < min || editText.length > max) {

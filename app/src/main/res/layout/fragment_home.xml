@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/cpf_edit"
+            style="@style/editTextStyle"
+            android:layout_marginTop="150dp"
+            android:autofillHints=""
+            android:hint="@string/cpf_Text"
+            android:inputType="number"
+            android:maxLength="14" />
+
+        <EditText
+            android:id="@+id/nome_edit"
+            style="@style/editTextStyle"
+            android:layout_below="@+id/cpf_edit"
+            android:autofillHints=""
+            android:hint="@string/nome_Text"
+            android:inputType="textPersonName"
+            android:maxLength="25" />
+
+        <EditText
+            android:id="@+id/desejo_edit"
+            style="@style/editTextStyle"
+            android:layout_below="@+id/nome_edit"
+            android:autofillHints=""
+            android:hint="@string/desejo_Text"
+            android:inputType="textPersonName"
+            android:maxLength="35" />
+
+        <EditText
+            android:id="@+id/gameId"
+            style="@style/editTextStyle"
+            android:layout_below="@+id/desejo_edit"
+            android:autofillHints=""
+            android:hint="ID do jogo"
+            android:maxLength="11" />
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/text"
+            android:layout_below="@+id/gameId"
+            android:text=""
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/cadastrar"
+            style="@style/ButtonStyle"
+            android:layout_below="@+id/status"
+            android:layout_marginTop="20dp"
+            android:text="@string/cadastrar_text" />
+
+        <Button
+            android:id="@+id/verificar"
+            style="@style/ButtonStyle"
+            android:layout_below="@+id/cadastrar"
+            android:text="@string/verificar_Text" />
+
+    </RelativeLayout>
+</FrameLayout>

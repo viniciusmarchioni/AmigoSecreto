@@ -6,4 +6,6 @@
     <string name="cadastrar_text">Cadastrar</string>
     <string name="verificar_Text">Verificar sorteio</string>
     <string name="image_Description">Image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

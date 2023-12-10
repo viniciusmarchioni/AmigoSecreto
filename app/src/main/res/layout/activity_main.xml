@@ -4,77 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/image"
-        style="@style/image"
-        android:contentDescription="@string/image_Description" />
-
-    <EditText
-        android:id="@+id/cpf_edit"
-        style="@style/editTextStyle"
-        android:layout_below="@+id/image"
-        android:autofillHints=""
-        android:hint="@string/cpf_Text"
-        android:inputType="number"
-        android:maxLength="14" />
-
-    <EditText
-        android:id="@+id/nome_edit"
-        style="@style/editTextStyle"
-        android:layout_below="@+id/cpf_edit"
-        android:autofillHints=""
-        android:hint="@string/nome_Text"
-        android:inputType="textPersonName"
-        android:maxLength="25" />
-
-    <EditText
-        android:id="@+id/desejo_edit"
-        style="@style/editTextStyle"
-        android:layout_below="@+id/nome_edit"
-        android:autofillHints=""
-        android:hint="@string/desejo_Text"
-        android:inputType="textPersonName"
-        android:maxLength="35" />
-
-    <EditText
-        android:id="@+id/gameId"
-        style="@style/editTextStyle"
-        android:layout_below="@+id/desejo_edit"
-        android:autofillHints=""
-        android:hint="ID do jogo"
-        android:maxLength="11" />
-
-    <Button
-        android:id="@+id/gerenciar"
-        style="@style/ButtonStyle"
-        android:text="Gerenciar" />
-
-    <TextView
-        android:id="@+id/status"
-        android:layout_below="@+id/gameId"
-        style="@style/text"
-        android:textAlignment="center"
-        android:text=""
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         />
 
-    <Button
-        android:id="@+id/cadastrar"
-        style="@style/ButtonStyle"
-        android:layout_below="@+id/status"
-        android:layout_marginTop="20dp"
-        android:text="@string/cadastrar_text" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/edittext_rounded_corners"
+        >
 
-    <Button
-        android:id="@+id/verificar"
-        style="@style/ButtonStyle"
-        android:layout_below="@+id/cadastrar"
-        android:text="@string/verificar_Text" />
+        <ImageButton
+            android:id="@+id/cadastrar"
+            android:src="@drawable/baseline_person_add_out"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="@color/white"
+            />
+        <ImageButton
+            android:id="@+id/criar"
+            android:src="@drawable/baseline_create"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="@color/white"
+            />
+        <ImageButton
+            android:id="@+id/gerenciar"
+            android:src="@drawable/baseline_manage_search"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="@color/white"
+            />
 
-    <Button
-        android:id="@+id/troca"
-        style="@style/ButtonStyle"
-        android:layout_below="@+id/verificar"
-        android:text="Criar um jogo" />
+    </LinearLayout>
 
 
 </RelativeLayout>
