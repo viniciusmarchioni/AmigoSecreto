@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/status"
-        style="@style/text"
+        style="@style/status"
         android:layout_below="@+id/desejo_edit"
         android:text="" />
 
