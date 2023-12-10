@@ -86,7 +86,7 @@ class CreateSession : Fragment() {
                                 return@post
                             }
                             id = response.body()!!.tableID
-                            status.text = "Jogo Criado\nO ID da sua sessão é:\n$id"
+                            status.text = "Jogo Criado!\nO ID da sua sessão é:\n$id"
                             copy.isVisible = true
                             copy.isClickable = true
                             it.isVisible = false
@@ -95,7 +95,7 @@ class CreateSession : Fragment() {
 
                     @SuppressLint("SetTextI18n")
                     override fun onFailure(call: Call<User>, t: Throwable) {
-                        status.text = "Erro!\n$t"
+                        status.text = "Falha na conexão com o servidor."
                         it.isClickable = true
                     }
 

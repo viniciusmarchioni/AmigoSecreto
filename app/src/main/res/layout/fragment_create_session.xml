@@ -4,18 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateSession"
-    android:background="@drawable/degrade"
+    style="@style/layout"
     >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Criar uma sessão"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        android:textColor="@color/blue"
-        />
+        style="@style/text"
+        android:text="@string/create_session_text"/>
 
     <EditText
         android:id="@+id/cpf_edit"
@@ -53,20 +47,16 @@
 
     <ImageButton
         android:id="@+id/copy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/copy"
         android:layout_below="@+id/desejo_edit"
-        android:layout_marginTop="25dp"
         android:layout_toEndOf="@id/status"
-        android:src="@drawable/copy_day"
-        android:visibility="invisible"
-        android:clickable="false"/>
+        android:contentDescription="@string/image_Description" />
 
     <Button
         android:id="@+id/criar"
         style="@style/ButtonStyle"
         android:layout_below="@+id/status"
-        android:text="Criar sessão" />
+        android:text="@string/create_text" />
 
 
 

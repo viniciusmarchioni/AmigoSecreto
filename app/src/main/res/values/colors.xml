@@ -5,7 +5,7 @@
     <color name="blue">#1F6AA4</color>
     <color name="hintNightColor">#808080</color>
     <color name="transparencyBlack">#A6000000</color>
-    <color name="red">#A6DA3333</color>
-    <color name="natalino"> #BF1E2E</color>
-    <color name="verdenatalino"> #006400</color>
+    <color name="red">#AE2929</color>
+    <color name="backgroundDayBlue">#39B2B6</color>
+    <color name="backgroundNightBlue">#257E81</color>
 </resources>

@@ -64,55 +64,58 @@ class Home : Fragment() {
                 return@setOnClickListener
             }
 
-
-            //chama função da interface
-            val call: Call<User> = create.addGuest(
-                User(
-                    editId.text.toString(),
-                    editName.text.toString(),
-                    editCpf.text.toString(),
-                    editDesejo.text.toString()
+            try {
+                //chama função da interface
+                val call: Call<User> = create.addGuest(
+                    User(
+                        editId.text.toString(),
+                        editName.text.toString(),
+                        editCpf.text.toString(),
+                        editDesejo.text.toString()
+                    )
                 )
-            )
 
 
-            //roda em segundo plano
-            call.enqueue(object : Callback<User> {
+                //roda em segundo plano
+                call.enqueue(object : Callback<User> {
 
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    //#001-tbid/002-cpf/003-nome/004-desejo/005-cad/
-                    //volta para primeiro plano
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        //#001-tbid/002-cpf/003-nome/004-desejo/005-cad/
+                        //volta para primeiro plano
 
-                    if ("200" in response.body()!!.response) {
-                        status.text = "Cadastro realizado!"
-                        it.isClickable = false
-                        it.isVisible = false
-                        return
+                        if ("200" in response.body()!!.response) {
+                            status.text = "Cadastro realizado!"
+                            it.isClickable = false
+                            it.isVisible = false
+                            return
+                        }
+
+
+                        when (response.body()!!.response) {
+
+                            "001" -> status.text = "Sessão não encontrada."
+                            "002" -> status.text = "Servidor:\nCPF inválido."
+                            "003" -> status.text = "Servidor:\nNome inválido."
+                            "004" -> status.text = "Servidor:\nDesejo inválido."
+                            "005" -> status.text = "Você já está cadastrado."
+
+                        }
+                        it.isClickable = true
                     }
 
-
-                    when (response.body()!!.response) {
-
-                        "001" -> status.text = "Sessão não encontrada."
-                        "002" -> status.text = "Servidor:\nCPF inválido."
-                        "003" -> status.text = "Servidor:\nNome inválido."
-                        "004" -> status.text = "Servidor:\nDesejo inválido."
-                        "005" -> status.text = "Você já está cadastrado."
-
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                        status.text = "Servidores indisponíveis\nTente novamente mais tarde."
+                        it.isClickable = true
                     }
-                    it.isClickable = true
-                }
 
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    status.text = "Erro!\n$t"
-                    it.isClickable = true
-                }
+                })
 
-            })
 
+            } catch (e: Exception) {
+                status.text = "Aconteceu algum erro durante o cadastro."
+            }
 
         }
-
 
         verificar.setOnClickListener {
             it.isClickable = false

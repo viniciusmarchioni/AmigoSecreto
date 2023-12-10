@@ -23,20 +23,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ManagementSession : Fragment() {
 
     //config retrofit
-    val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:5000/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
+        .addConverterFactory(GsonConverterFactory.create()).build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
-    val create = retrofit.create(request::class.java)
+    private val create = retrofit.create(request::class.java)
 
     //Config Adapter
     val listadeJogos: MutableList<Sessao> = mutableListOf()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_management_session, container, false)
 
@@ -57,51 +54,53 @@ class ManagementSession : Fragment() {
                 return@setOnClickListener
             }
 
-            create.pegarSessao(GetSessoes(cpf.text.toString())).apply {
-                enqueue(object : Callback<GetSessoes> {
+            try {
+                create.pegarSessao(GetSessoes(cpf.text.toString())).apply {
+                    enqueue(object : Callback<GetSessoes> {
 
-                    override fun onResponse(
-                        call: Call<GetSessoes>,
-                        response: Response<GetSessoes>
-                    ) {
-                        //comparação de resposta
-                        when (response.body()!!.response) {
-                            "200" -> { //Tudo certo
-                                status.text = ""
-                                var x = response.body().toString()
-                                println(x)
-
-                                for (i in response.body()!!.sessoes) {
-                                    listadeJogos.add(
-                                        Sessao(
-                                            i,
-                                            response.body()!!.tamanho[i.indexOf(i)]
+                        override fun onResponse(
+                            call: Call<GetSessoes>, response: Response<GetSessoes>
+                        ) {
+                            //comparação de resposta
+                            when (response.body()!!.response) {
+                                "200" -> { //Tudo certo
+                                    status.text = ""
+                                    for (i in response.body()!!.sessoes) {
+                                        listadeJogos.add(
+                                            Sessao(
+                                                i, response.body()!!.tamanho[i.indexOf(i)]
+                                            )
                                         )
-                                    )
+                                    }
+                                    it.isVisible = false
                                 }
-                                it.isVisible = false
-                            }
 
-                            "001" -> { //CPF errado
-                                status.text = "Servidor:\nCPF inválido!"
-                                it.isClickable = true
-                            }
+                                "001" -> { //CPF errado
+                                    status.text = "Servidor:\nCPF inválido!"
+                                    it.isClickable = true
+                                }
 
-                            "002" -> {  //Não é host
-                                status.text = "Você não é um Host"
-                                it.isClickable = true
+                                "002" -> {  //Não é host
+                                    status.text = "Você não é um Host"
+                                    it.isClickable = true
+                                }
                             }
                         }
-                    }
 
-                    override fun onFailure(call: Call<GetSessoes>, t: Throwable) {
-                        it.isClickable = true
-                        status.text = "Erro:\n$t"
-                    }
+                        override fun onFailure(call: Call<GetSessoes>, t: Throwable) {
+                            it.isClickable = true
+                            status.text = "Servidores indisponíveis\nTente novamente mais tarde."
+                        }
 
 
-                })
+                    })
+                }
+
+            } catch (e: Exception) {
+                status.text = "Aconteceu algum erro!"
             }
+
+
         }
 
         return view

@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManagementSession"
-    android:background="@drawable/degrade"
-    >
+    tools:context=".ManagementSession">
 
     <TextView
         android:id="@+id/Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gerenciar sessão"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        android:textColor="@color/blue"
-        />
+        style="@style/text"
+        android:text="@string/management_session_text" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/Text"
         android:id="@+id/Recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/editcpf"
+        android:layout_below="@+id/Text"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_margin="30dp"
@@ -33,17 +26,17 @@
         android:id="@+id/editcpf"
         style="@style/editTextStyle"
         android:layout_centerVertical="true"
-        android:hint="CPF"
+        android:hint="@string/cpf_Text"
         android:inputType="number"
         android:maxLength="14"
-        />
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/versessoesbutton"
         style="@style/ButtonStyle"
         android:layout_below="@+id/editcpf"
         android:layout_centerHorizontal="true"
-        android:text="Ver sessões" />
+        android:text="@string/see_sesions_text" />
 
     <TextView
         android:id="@+id/status"

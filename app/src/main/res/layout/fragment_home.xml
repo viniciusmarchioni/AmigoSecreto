@@ -3,19 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home"
+    style="@style/layout"
     android:orientation="vertical"
-    android:background="@drawable/degrade"
-    >
+    tools:context=".Home">
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entrar em uma sessão"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        android:textColor="@color/blue"
-        />
+        style="@style/text"
+        android:text="@string/SingIn"/>
 
     <EditText
         android:id="@+id/cpf_edit"
@@ -49,8 +43,9 @@
         style="@style/editTextStyle"
         android:layout_below="@+id/desejo_edit"
         android:autofillHints=""
-        android:hint="ID do jogo"
-        android:maxLength="11" />
+        android:hint="@string/sessionid_text"
+        android:maxLength="11"
+        android:inputType="textCapCharacters" />
 
     <TextView
         android:id="@+id/status"

@@ -1,25 +1,46 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.AmigoSecretoGuest" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#39B2B6</item>
     </style>
 
     <style name="Theme.AmigoSecretoGuest" parent="Base.Theme.AmigoSecretoGuest" />
+
+    <style name="copy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:src">@drawable/copy_day</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+
 
     <style name="image">
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">150dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginTop">100dp</item>
+        <item name="android:maxLines">1</item>
+
     </style>
 
+    <style name="layout">
+        <item name="android:background">@drawable/background_day</item>
+    </style>
+
+
     <style name="text">
-        <item name="android:textColor"> @color/black </item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">25dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
 
@@ -33,6 +54,8 @@
         <item name="android:padding">12dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:minWidth">150dp</item>
+        <item name="android:textColorHint">#757575</item>
+
     </style>
 
     <style name="ButtonStyle">

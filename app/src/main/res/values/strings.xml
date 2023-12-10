@@ -1,11 +1,20 @@
 <resources>
-    <string name="app_name">amigoSecretoGuest</string>
+    <string name="app_name">Amigo Secreto</string>
     <string name="cpf_Text">CPF</string>
     <string name="nome_Text">Nome</string>
     <string name="desejo_Text">Desejo(s)</string>
     <string name="cadastrar_text">Cadastrar</string>
     <string name="verificar_Text">Verificar sorteio</string>
     <string name="image_Description">Image</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SingIn">Entrar</string>
+    <string name="sessionid_text">ID do sessão</string>
+    <string name="create_session_text">Criar uma sessão</string>
+    <string name="create_text">Criar sessão</string>
+    <string name="management_session_text">Gerenciar sessões</string>
+    <string name="see_sesions_text">Ver sessões</string>
+    <string name="delete_session_text">Deletar Sessão</string>
+    <string name="draw_text">Sortear</string>
+    <string name="confirm_delete_text">Deseja deletar a sessão?\nEsta ação não poderá ser desfeita</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>
