@@ -1,23 +1,9 @@
 package com.example.amigosecretoguest
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.amigosecretoguest.model.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         val registrar = findViewById<ImageButton>(R.id.cadastrar)
         val criar = findViewById<ImageButton>(R.id.criar)
         val gerenciar = findViewById<ImageButton>(R.id.gerenciar)
+
+        registrar.isClickable = false
 
 
         registrar.setOnClickListener {

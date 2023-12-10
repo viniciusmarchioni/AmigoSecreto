@@ -14,13 +14,14 @@ data class GetSessoes (
 
     val cpf: String,
     val sessoes: MutableList<String> = mutableListOf(),
+    val tamanho: MutableList<Int> = mutableListOf(),
     val response: String = ""
 
 )
 
 data class Sessao (
     val sessionID: String,
-    val quant: Int = 0
+    val size: Int
 )
 
 data class apagar (

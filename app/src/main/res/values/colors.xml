@@ -6,4 +6,6 @@
     <color name="hintNightColor">#808080</color>
     <color name="transparencyBlack">#A6000000</color>
     <color name="red">#A6DA3333</color>
+    <color name="natalino"> #BF1E2E</color>
+    <color name="verdenatalino"> #006400</color>
 </resources>

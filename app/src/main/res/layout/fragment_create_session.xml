@@ -1,76 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateSession">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:context=".CreateSession"
+    android:background="@drawable/degrade"
+    >
 
-        <TextView
-            android:id="@+id/textCriar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"
-            android:text="Criar novo jogo"
-            android:textSize="30sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Criar uma sessão"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"
+        android:textColor="@color/blue"
+        />
 
-        <EditText
-            android:id="@+id/cpf_edit"
-            style="@style/editTextStyle"
-            android:layout_below="@+id/textCriar"
-            android:autofillHints=""
-            android:hint="@string/cpf_Text"
-            android:inputType="number"
-            android:maxLength="14" />
+    <EditText
+        android:id="@+id/cpf_edit"
+        style="@style/editTextStyle"
+        android:layout_marginTop="150dp"
+        android:autofillHints=""
+        android:hint="@string/cpf_Text"
+        android:inputType="number"
+        android:maxLength="14"
+        />
 
-        <EditText
-            android:id="@+id/nome_edit"
-            style="@style/editTextStyle"
-            android:layout_below="@+id/cpf_edit"
-            android:autofillHints=""
-            android:hint="@string/nome_Text"
-            android:inputType="textPersonName"
-            android:maxLength="25" />
+    <EditText
+        android:id="@+id/nome_edit"
+        style="@style/editTextStyle"
+        android:layout_below="@+id/cpf_edit"
+        android:autofillHints=""
+        android:hint="@string/nome_Text"
+        android:inputType="textPersonName"
+        android:maxLength="25" />
 
-        <EditText
-            android:id="@+id/desejo_edit"
-            style="@style/editTextStyle"
-            android:layout_below="@+id/nome_edit"
-            android:autofillHints=""
-            android:hint="@string/desejo_Text"
-            android:inputType="textPersonName"
-            android:maxLength="35" />
+    <EditText
+        android:id="@+id/desejo_edit"
+        style="@style/editTextStyle"
+        android:layout_below="@+id/nome_edit"
+        android:autofillHints=""
+        android:hint="@string/desejo_Text"
+        android:inputType="textPersonName"
+        android:maxLength="35" />
 
-        <TextView
-            android:id="@+id/status"
-            style="@style/text"
-            android:layout_below="@+id/desejo_edit"
-            android:text="" />
+    <TextView
+        android:id="@+id/status"
+        style="@style/text"
+        android:layout_below="@+id/desejo_edit"
+        android:text="" />
 
-        <ImageButton
-            android:id="@+id/copy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/desejo_edit"
-            android:layout_marginTop="25dp"
-            android:layout_toEndOf="@id/status"
-            android:src="@drawable/copy_day"
-            android:visibility="invisible"
-            android:clickable="false"/>
+    <ImageButton
+        android:id="@+id/copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/desejo_edit"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/status"
+        android:src="@drawable/copy_day"
+        android:visibility="invisible"
+        android:clickable="false"/>
 
-        <Button
-            android:id="@+id/criar"
-            style="@style/ButtonStyle"
-            android:layout_below="@+id/status"
-            android:text="Criar Jogo" />
-
-
-
+    <Button
+        android:id="@+id/criar"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/status"
+        android:text="Criar sessão" />
 
 
-    </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

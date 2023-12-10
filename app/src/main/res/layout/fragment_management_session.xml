@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManagementSession">
+    tools:context=".ManagementSession"
+    android:background="@drawable/degrade"
+    >
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gerenciar sessão"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"
+        android:textColor="@color/blue"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/Text"
+        android:id="@+id/Recycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/editcpf"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="30dp"
+        android:textAlignment="center" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Recycle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/editcpf"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="30dp"
-            android:textAlignment="center" />
+    <EditText
+        android:id="@+id/editcpf"
+        style="@style/editTextStyle"
+        android:layout_centerVertical="true"
+        android:hint="CPF"
+        android:inputType="number"
+        android:maxLength="14"
+        />
 
-        <EditText
-            android:id="@+id/editcpf"
-            style="@style/editTextStyle"
-            android:layout_centerVertical="true"
-            android:hint="CPF" />
+    <Button
+        android:id="@+id/versessoesbutton"
+        style="@style/ButtonStyle"
+        android:layout_below="@+id/editcpf"
+        android:layout_centerHorizontal="true"
+        android:text="Ver sessões" />
 
-        <Button
-            android:id="@+id/versessoesbutton"
-            style="@style/ButtonStyle"
-            android:layout_below="@+id/editcpf"
-            android:layout_centerHorizontal="true"
-            android:text="Ver sessões" />
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/versessoesbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text=""
+        android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/versessoesbutton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text=""
-            android:textSize="25sp" />
-
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

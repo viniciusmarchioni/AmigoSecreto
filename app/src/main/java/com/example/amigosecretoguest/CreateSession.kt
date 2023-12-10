@@ -3,7 +3,6 @@ package com.example.amigosecretoguest
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,7 +16,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import com.example.amigosecretoguest.model.User
 import retrofit2.Call
@@ -25,7 +23,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.NullPointerException
 
 class CreateSession : Fragment() {
 

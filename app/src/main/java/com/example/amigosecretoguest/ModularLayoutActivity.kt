@@ -1,18 +1,12 @@
 package com.example.amigosecretoguest
 
-import android.content.Context
 import android.os.Bundle
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.amigosecretoguest.model.User
 import com.example.amigosecretoguest.model.apagar
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +15,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ModularLayoutActivity() : AppCompatActivity() {
+
+    //config retrofit
+    val retrofit = Retrofit.Builder()
+        .baseUrl("http://10.0.2.2:5000/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    //Chama a interface no mesmo tipo da classe requerida pela api
+    val create = retrofit.create(request::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modular_layout)
@@ -29,18 +33,6 @@ class ModularLayoutActivity() : AppCompatActivity() {
         val delete = findViewById<Button>(R.id.deletar)
         val sorteio = findViewById<Button>(R.id.sortear)
         val status = findViewById<TextView>(R.id.status)
-
-
-        //config retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        //Chama a interface no mesmo tipo da classe requerida pela api
-        val create = retrofit.create(request::class.java)
-
-
 
         delete.setOnClickListener {
             val deleteLayout = findViewById<RelativeLayout>(R.id.layoutdelete)
@@ -74,7 +66,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
                             startActivity(
                                 Intent(
                                     this@ModularLayoutActivity,
-                                    CreateGameActivity::class.java
+                                    MainActivity::class.java
                                 )
                             )
 
@@ -87,10 +79,6 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
 
                 })
-
-
-
-                Log.d("TAG", "APAGA")
             }
 
         }

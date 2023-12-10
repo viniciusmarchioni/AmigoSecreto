@@ -21,12 +21,6 @@
             android:name=".ModularLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_game_management"
-            android:exported="false" />
-        <activity
-            android:name=".CreateGameActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"

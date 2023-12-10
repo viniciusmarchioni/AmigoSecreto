@@ -1,6 +1,5 @@
 package com.example.amigosecretoguest.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ class AdapterGame(private val context: Context, private val games: MutableList<S
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         holder.buttonGameID.text = games[position].sessionID
-        holder.participantes.text = "Participantes:\n${games[position].quant}"
+        holder.participantes.text = "Participantes:\n${games[position].size}"
         holder.buttonGameID.setOnClickListener {
             val novaTela = Intent(context, ModularLayoutActivity::class.java)
             novaTela.putExtra("titulo", holder.buttonGameID.text)
