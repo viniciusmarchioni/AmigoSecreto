@@ -51,21 +51,21 @@
 
         <Button
             android:id="@+id/simButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/textDelete"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="25dp"
+            style="@style/ButtonStyle"
+            android:layout_centerHorizontal="false"
+            android:textColor="@color/white"
             android:backgroundTint="@color/red"
             android:text="@string/yes" />
 
         <Button
             android:id="@+id/naoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/textDelete"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:textColor="@color/white"
+            style="@style/ButtonStyle"
+            android:layout_centerHorizontal="false"
             android:layout_toEndOf="@+id/simButton"
             android:backgroundTint="@color/blue"
             android:text="@string/no" />

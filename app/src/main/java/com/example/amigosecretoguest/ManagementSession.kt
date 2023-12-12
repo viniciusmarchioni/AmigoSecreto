@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ManagementSession : Fragment() {
 
     //config retrofit
-    private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
+    private val retrofit = Retrofit.Builder().baseUrl("http://18.230.152.190:5000/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
@@ -65,10 +65,11 @@ class ManagementSession : Fragment() {
                             when (response.body()!!.response) {
                                 "200" -> { //Tudo certo
                                     status.text = ""
-                                    for (i in response.body()!!.sessoes) {
+                                    for (i in 0 until response.body()!!.sessoes.size) {
                                         listadeJogos.add(
                                             Sessao(
-                                                i, response.body()!!.tamanho[i.indexOf(i)]
+                                                response.body()!!.sessoes[i],
+                                                response.body()!!.tamanho[i]
                                             )
                                         )
                                     }

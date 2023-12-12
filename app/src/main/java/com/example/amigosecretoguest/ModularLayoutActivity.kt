@@ -18,7 +18,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
     //config retrofit
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:5000/")
+        .baseUrl("http://18.230.152.190:5000/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

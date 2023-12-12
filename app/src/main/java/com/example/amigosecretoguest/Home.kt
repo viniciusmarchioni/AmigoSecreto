@@ -18,6 +18,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Home : Fragment() {
+
+    //Configura o retrofit
+    val retrofit = Retrofit.Builder()
+        .baseUrl("http://18.230.152.190:5000/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    //Chama a interface no mesmo tipo da classe requerida pela api
+    val create = retrofit.create(request::class.java)
+
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +44,6 @@ class Home : Fragment() {
         val editName = view.findViewById<EditText>(R.id.nome_edit)
         val editDesejo = view.findViewById<EditText>(R.id.desejo_edit)
         val editId = view.findViewById<EditText>(R.id.gameId)
-
-        //Configura o retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        //Chama a interface no mesmo tipo da classe requerida pela api
-        val create = retrofit.create(request::class.java)
-
 
         cadastrar.setOnClickListener {
             it.isClickable = false
