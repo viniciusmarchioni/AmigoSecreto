@@ -1,6 +1,7 @@
 package com.example.amigosecretoguest
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,14 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Home : Fragment() {
 
     //Configura o retrofit
-    val retrofit = Retrofit.Builder()
+    private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("http://18.230.152.190:5000/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
-    val create = retrofit.create(request::class.java)
-
+    private val create: request = retrofit.create(request::class.java)
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -44,6 +44,18 @@ class Home : Fragment() {
         val editName = view.findViewById<EditText>(R.id.nome_edit)
         val editDesejo = view.findViewById<EditText>(R.id.desejo_edit)
         val editId = view.findViewById<EditText>(R.id.gameId)
+
+        try {
+            val sharedPref = activity?.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+            editCpf.setText(sharedPref!!.getString("cpf",""))
+            editId.setText(sharedPref.getString("session",""))
+            editName.setText(sharedPref.getString("nome",""))
+
+
+        }catch (_:Exception){}
+
+
 
         cadastrar.setOnClickListener {
             it.isClickable = false
@@ -64,6 +76,18 @@ class Home : Fragment() {
                 it.isClickable = true
                 return@setOnClickListener
             }
+
+
+
+            val sharedPref = activity?.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+            val editor = sharedPref!!.edit()
+            editor.putString("cpf",editCpf.text.toString())
+            editor.putString("session",editId.text.toString())
+            editor.putString("nome",editName.text.toString())
+            editor.apply()
+
+
 
             try {
                 //chama função da interface
@@ -99,6 +123,7 @@ class Home : Fragment() {
                             "003" -> status.text = "Servidor:\nNome inválido."
                             "004" -> status.text = "Servidor:\nDesejo inválido."
                             "005" -> status.text = "Você já está cadastrado."
+                            "100" -> status.text = "Aconteceu algum erro."
 
                         }
                         it.isClickable = true

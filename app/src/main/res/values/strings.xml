@@ -17,4 +17,5 @@
     <string name="confirm_delete_text">Deseja deletar a sessão?\nEsta ação não poderá ser desfeita</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="preference_file_key">com.example.amigosecretoguest.PREFERENCE_FILE_KEY</string>
 </resources>

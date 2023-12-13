@@ -18,7 +18,8 @@
         android:autofillHints=""
         android:hint="@string/cpf_Text"
         android:inputType="number"
-        android:maxLength="14" />
+        android:maxLength="14"
+        />
 
     <EditText
         android:id="@+id/nome_edit"
@@ -26,8 +27,10 @@
         android:layout_below="@+id/cpf_edit"
         android:autofillHints=""
         android:hint="@string/nome_Text"
-        android:inputType="textPersonName"
-        android:maxLength="25" />
+        android:inputType="textCapWords|textPersonName"
+        android:maxLength="25"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        />
 
     <EditText
         android:id="@+id/desejo_edit"

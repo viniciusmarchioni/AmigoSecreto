@@ -1,5 +1,6 @@
 package com.example.amigosecretoguest
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,10 +47,20 @@ class ManagementSession : Fragment() {
 
         recyclerview.adapter = AdapterGame(requireContext(), listadeJogos)
 
+
+        try {
+
+            val sharedPref = activity?.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+            cpf.setText(sharedPref!!.getString("cpf",""))
+
+        }catch (_:Exception){}
+
+
         sessoesButton.setOnClickListener {
             it.isClickable = false
             if (MainActivity().verify(cpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido!"
+                status.text = "CPF inválido."
                 it.isClickable = true
                 return@setOnClickListener
             }
@@ -77,7 +88,7 @@ class ManagementSession : Fragment() {
                                 }
 
                                 "001" -> { //CPF errado
-                                    status.text = "Servidor:\nCPF inválido!"
+                                    status.text = "Servidor:\nCPF inválido."
                                     it.isClickable = true
                                 }
 

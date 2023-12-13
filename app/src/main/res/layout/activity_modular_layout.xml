@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_day"
+    style="@style/layout"
     tools:context=".ModularLayoutActivity">
 
     <TextView
@@ -75,9 +75,8 @@
 
     <TextView
         android:id="@+id/status"
-        style="@style/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/status"
+        android:textAlignment="center"
         android:layout_below="@+id/sortear"
         android:text="" />
 
