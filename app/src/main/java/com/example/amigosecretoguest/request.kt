@@ -1,9 +1,9 @@
 package com.example.amigosecretoguest
 
-import com.example.amigosecretoguest.model.GetSessoes2
+import com.example.amigosecretoguest.model.GetSessoes
 import com.example.amigosecretoguest.model.User
-import com.example.amigosecretoguest.model.apagar
-import com.example.amigosecretoguest.model.apagar2
+import com.example.amigosecretoguest.model.Apagar
+import com.example.amigosecretoguest.model.Sorteio
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -25,11 +25,11 @@ interface request {
 
 
     @DELETE("/session/delete/{id}")
-    fun apagarsessao2(@Path("id") id: String): Call<apagar2>
+    fun apagarsessao(@Path("id") id: String): Call<Apagar>
 
     @POST("/session/sortition/start")
-    fun realizarsorteio(@Body dataclasse: apagar): Call<apagar>
+    fun realizarsorteio(@Body dataclasse: Sorteio): Call<Sorteio>
 
     @GET("/session/requere/{cpf}")
-    fun getsessao2(@Path("cpf") cpf: String): Call<GetSessoes2>
+    fun getsessao2(@Path("cpf") cpf: String): Call<GetSessoes>
 }

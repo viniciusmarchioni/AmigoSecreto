@@ -185,7 +185,7 @@ class Home : Fragment() {
                         "001" -> status.text = "Servidor: CPF inválido."
                         "002" -> status.text = "Servidor: Sessão não encontrada"
                         "003" -> status.text = "Você não está cadastrado na sessão."
-                        "004" -> status.text = "O sorteio ainda não aconteceu."
+                        "004" -> status.text = "O Sorteio ainda não aconteceu."
 
                     }
                     it.isClickable = true

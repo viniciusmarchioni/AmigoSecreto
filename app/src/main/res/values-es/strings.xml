@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Amigo Secreto</string>
+    <string name="cpf_Text">CPF</string>
+    <string name="cpfinvalid_Text">CPF inválido.</string>
+    <string name="nome_Text">Nombre</string>
+    <string name="nomeinvalid_Text">Nombre inválido.</string>
+    <string name="desejo_Text">Deseos</string>
+    <string name="desejoinvalid_Text">Deseo inválido.</string>
+    <string name="cadastrar_text">Registrar</string>
+    <string name="verificar_Text">Comprobar sorteo</string>
+    <string name="image_Description">Imagen</string>
+    <string name="SingIn">Entrar</string>
+    <string name="sessionid_text">ID de sesión</string>
+    <string name="create_session_text">Crear una sesión</string>
+    <string name="create_text">Crear sesión</string>
+    <string name="management_session_text">Gestionar sesiones</string>
+    <string name="see_sesions_text">Ver sesiones</string>
+    <string name="delete_session_text">Borrar sesión</string>
+    <string name="draw_text">Dibujar</string>
+    <string name="confirm_delete_text">¿Quieres eliminar la sesión?\nEsta acción no se puede deshacer</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="criacaoDeJogo">"¡Juego creado!\nSu ID de sesión es: "</string>
+    <string name="aconteceuAlgumErro">Se ha producido un error.</string>
+    <string name="sorteioRealizado">¡Sorteo celebrado!</string>
+    <string name="sorteioAlerta">Sólo es posible realizar el sorteo con al menos 3 participantes en el juego.</string>
+    <string name="naoHost">No eres un anfitrión.</string>
+    <string name="servidoresIndisponiveis">Servidores no disponibles.\nVuelve a intentarlo más tarde.</string>
+    <string name="preference_file_key">com.example.amigosecretoguest.PREFERENCE_FILE_KEY</string>
+</resources>

@@ -7,8 +7,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.amigosecretoguest.model.apagar
-import com.example.amigosecretoguest.model.apagar2
+import com.example.amigosecretoguest.model.Sorteio
+import com.example.amigosecretoguest.model.Apagar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,9 +19,9 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
     //config retrofit
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://localhost:5000/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+            .baseUrl("http://10.0.2.2:5000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
     val create = retrofit.create(request::class.java)
@@ -54,22 +54,22 @@ class ModularLayoutActivity() : AppCompatActivity() {
             }
 
             sim.setOnClickListener {
-                val call: Call<apagar2> = create.apagarsessao2(text.text.toString())
+                val call: Call<Apagar> = create.apagarsessao(text.text.toString())
 
-                call.enqueue(object : Callback<apagar2> {
-                    override fun onResponse(call: Call<apagar2>, response: Response<apagar2>) {
+                call.enqueue(object : Callback<Apagar> {
+                    override fun onResponse(call: Call<Apagar>, response: Response<Apagar>) {
                         if (response.body()!!.response == "200") {
                             startActivity(
-                                Intent(
-                                    this@ModularLayoutActivity,
-                                    MainActivity::class.java
-                                )
+                                    Intent(
+                                            this@ModularLayoutActivity,
+                                            MainActivity::class.java
+                                    )
                             )
                         }
                     }
 
-                    override fun onFailure(call: Call<apagar2>, t: Throwable) {
-                        status.text = "Aconteceu algum erro."
+                    override fun onFailure(call: Call<Apagar>, t: Throwable) {
+                        status.text = getString(R.string.aconteceuAlgumErro)
                     }
 
 
@@ -84,24 +84,23 @@ class ModularLayoutActivity() : AppCompatActivity() {
             it.isClickable = false
 
             //chama função da interface
-            val call: Call<apagar> =
-                create.realizarsorteio(
-                    apagar(true, text.text.toString())
-                )
+            val call: Call<Sorteio> =
+                    create.realizarsorteio(
+                            Sorteio(true, text.text.toString())
+                    )
 
-            call.enqueue(object : Callback<apagar> {
+            call.enqueue(object : Callback<Sorteio> {
 
-                override fun onResponse(call: Call<apagar>, response: Response<apagar>) {
+                override fun onResponse(call: Call<Sorteio>, response: Response<Sorteio>) {
                     if (response.body()!!.response) {
-                        status.text = "Sorteio realizado!"
+                        status.text = getString(R.string.sorteioRealizado)
                         return
                     } else {
-                        status.text =
-                            "Só é possivel realizar o sorteio com pelo menos 3 participantes no jogo."
+                        status.text = getString(R.string.sorteioAlerta)
                     }
                 }
 
-                override fun onFailure(call: Call<apagar>, t: Throwable) {
+                override fun onFailure(call: Call<Sorteio>, t: Throwable) {
                     status.text = "Erro:\n$t"
                 }
             })

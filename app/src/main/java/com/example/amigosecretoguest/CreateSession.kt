@@ -31,7 +31,7 @@ class CreateSession : Fragment() {
     private lateinit var id: String
 
     //config retrofit
-    val retrofit = Retrofit.Builder().baseUrl("http://localhost:5000/")
+    val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
 
@@ -55,23 +55,25 @@ class CreateSession : Fragment() {
         try {
 
             val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-            cpfedit.setText(sharedPref!!.getString("cpf",""))
-            name.setText(sharedPref.getString("nome",""))
-        }catch (_:Exception){}
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE
+            )
+            cpfedit.setText(sharedPref!!.getString("cpf", ""))
+            name.setText(sharedPref.getString("nome", ""))
+        } catch (_: Exception) {
+        }
 
         createButton.setOnClickListener {
             it.isClickable = false
-            if (isValidText(cpfedit.text.toString(), 2, 14)) {
-                status.text = "CPF inválido."
+            if (isValidText(cpfedit.text.toString(), 10, 14)) {
+                status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             } else if (isValidText(name.text.toString(), 2, 20)) {
-                status.text = "Nome inválido"
+                status.text = getString(R.string.nomeinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             } else if (isValidText(desejo.text.toString(), 5, 255)) {
-                status.text = "Desejo inválido"
+                status.text = getString(R.string.desejoinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             }
@@ -87,9 +89,10 @@ class CreateSession : Fragment() {
 
                     override fun onResponse(call: Call<User>, response: Response<User>) {
                         val sharedPref = activity?.getSharedPreferences(
-                            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+                        )
                         val editor = sharedPref!!.edit()
-                        editor.putString("cpf",cpfedit.text.toString())
+                        editor.putString("cpf", cpfedit.text.toString())
                         editor.apply()
 
                         //Neste caso é necessário para inicializar o ID
@@ -101,7 +104,7 @@ class CreateSession : Fragment() {
                                 return@post
                             }
                             id = response.body()!!.tableID
-                            status.text = "Jogo Criado!\nO ID da sua sessão é:\n$id"
+                            status.text = "${getString(R.string.criacaoDeJogo)}$id"
                             copy.isVisible = true
                             copy.isClickable = true
                             it.isVisible = false

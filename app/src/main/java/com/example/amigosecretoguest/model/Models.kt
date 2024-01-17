@@ -9,7 +9,7 @@ data class User (
     val response: String = ""
 
 )
-data class GetSessoes2 (
+data class GetSessoes (
 
     val sessoes: MutableList<String> = mutableListOf(),
     val tamanho: MutableList<Int> = mutableListOf(),
@@ -22,10 +22,10 @@ data class Sessao (
     val size: Int
 )
 
-data class apagar (
+data class Sorteio (
     val decisao: Boolean,
     val sessaoid: String,
     val response: Boolean = false
 )
 
-data class apagar2( val response: String)
+data class Apagar(val response: String)

@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Amigo Secreto</string>
     <string name="cpf_Text">CPF</string>
+    <string name="cpfinvalid_Text">CPF inválido.</string>
     <string name="nome_Text">Nome</string>
+    <string name="nomeinvalid_Text">Nome inválido.</string>
     <string name="desejo_Text">Desejo(s)</string>
+    <string name="desejoinvalid_Text">Desejo inválido.</string>
     <string name="cadastrar_text">Cadastrar</string>
     <string name="verificar_Text">Verificar sorteio</string>
     <string name="image_Description">Image</string>
@@ -14,8 +17,14 @@
     <string name="see_sesions_text">Ver sessões</string>
     <string name="delete_session_text">Deletar Sessão</string>
     <string name="draw_text">Sortear</string>
-    <string name="confirm_delete_text">Deseja deletar a sessão?\nEsta ação não poderá ser desfeita</string>
+    <string name="confirm_delete_text">Deseja deletar a sessão? Esta ação não poderá ser desfeita</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="criacaoDeJogo">"Jogo criado! O ID de sua sessão é: "</string>
+    <string name="aconteceuAlgumErro">Aconteceu algum erro.</string>
+    <string name="sorteioRealizado">Sorteio realizado!</string>
+    <string name="sorteioAlerta">Só é possivel realizar o sorteio com pelo menos 3 participantes no jogo.</string>
+    <string name="naoHost">Você não é um host.</string>
+    <string name="servidoresIndisponiveis">Servidores indisponíveis.\nTente novamente mais tarde.</string>
     <string name="preference_file_key">com.example.amigosecretoguest.PREFERENCE_FILE_KEY</string>
 </resources>

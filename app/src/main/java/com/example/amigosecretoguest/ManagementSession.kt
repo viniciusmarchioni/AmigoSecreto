@@ -13,7 +13,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amigosecretoguest.adapter.AdapterGame
-import com.example.amigosecretoguest.model.GetSessoes2
+import com.example.amigosecretoguest.model.GetSessoes
 import com.example.amigosecretoguest.model.Sessao
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +25,7 @@ class ManagementSession : Fragment() {
 
     //config retrofit
     private val retrofit =
-        Retrofit.Builder().baseUrl("http://localhost:5000/")
+        Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
             .addConverterFactory(GsonConverterFactory.create()).build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
@@ -63,17 +63,17 @@ class ManagementSession : Fragment() {
         sessoesButton.setOnClickListener {
             it.isClickable = false
             if (MainActivity().verify(cpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido."
+                status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             }
 
             try {
                 create.getsessao2(cpf.text.toString()).apply {
-                    enqueue(object : Callback<GetSessoes2> {
+                    enqueue(object : Callback<GetSessoes> {
                         override fun onResponse(
-                            call: Call<GetSessoes2>,
-                            response: Response<GetSessoes2>
+                                call: Call<GetSessoes>,
+                                response: Response<GetSessoes>
                         ) {
                             //comparação de resposta
                             when (response.body()?.response) {
@@ -91,27 +91,27 @@ class ManagementSession : Fragment() {
                                 }
 
                                 "001" -> { //CPF errado
-                                    status.text = "Servidor:\nCPF inválido."
+                                    status.text = getString(R.string.cpfinvalid_Text)
                                     it.isClickable = true
                                 }
 
                                 "002" -> {  //Não é host
-                                    status.text = "Você não é um Host"
+                                    status.text = getString(R.string.naoHost)
                                     it.isClickable = true
                                 }
                             }
                         }
 
-                        override fun onFailure(call: Call<GetSessoes2>, t: Throwable) {
+                        override fun onFailure(call: Call<GetSessoes>, t: Throwable) {
                             it.isClickable = true
-                            status.text = "Servidores indisponíveis\nTente novamente mais tarde."
+                            status.text = getString(R.string.servidoresIndisponiveis)
                         }
                     })
                 }
 
 
             } catch (e: Exception) {
-                status.text = "Aconteceu algum erro!$e"
+                status.text = getString(R.string.aconteceuAlgumErro)
             }
 
 
