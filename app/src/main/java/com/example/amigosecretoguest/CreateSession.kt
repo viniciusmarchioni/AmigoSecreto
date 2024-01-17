@@ -31,7 +31,7 @@ class CreateSession : Fragment() {
     private lateinit var id: String
 
     //config retrofit
-    val retrofit = Retrofit.Builder().baseUrl("http://18.230.152.190:5000/")
+    val retrofit = Retrofit.Builder().baseUrl("http://flask-production-8741.up.railway.app/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
 
@@ -110,7 +110,7 @@ class CreateSession : Fragment() {
 
                     @SuppressLint("SetTextI18n")
                     override fun onFailure(call: Call<User>, t: Throwable) {
-                        status.text = "Falha na conexão com o servidor."
+                        status.text = "Falha na conexão com o servidor.$t"
                         it.isClickable = true
                     }
 

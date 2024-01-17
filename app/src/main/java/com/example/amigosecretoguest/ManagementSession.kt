@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amigosecretoguest.adapter.AdapterGame
 import com.example.amigosecretoguest.model.GetSessoes
+import com.example.amigosecretoguest.model.GetSessoes2
 import com.example.amigosecretoguest.model.Sessao
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ManagementSession : Fragment() {
 
     //config retrofit
-    private val retrofit = Retrofit.Builder().baseUrl("http://18.230.152.190:5000/")
+    private val retrofit = Retrofit.Builder().baseUrl("http://flask-production-8741.up.railway.app/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
@@ -51,10 +52,12 @@ class ManagementSession : Fragment() {
         try {
 
             val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-            cpf.setText(sharedPref!!.getString("cpf",""))
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE
+            )
+            cpf.setText(sharedPref!!.getString("cpf", ""))
 
-        }catch (_:Exception){}
+        } catch (_: Exception) {
+        }
 
 
         sessoesButton.setOnClickListener {
@@ -66,6 +69,50 @@ class ManagementSession : Fragment() {
             }
 
             try {
+                create.getsessao2(cpf.text.toString()).apply {
+                    enqueue(object : Callback<GetSessoes2>{
+                        override fun onResponse(
+                            call: Call<GetSessoes2>,
+                            response: Response<GetSessoes2>
+                        ) {
+                            //comparação de resposta
+                            when (response.body()?.response) {
+                                "200" -> { //Tudo certo
+                                    status.text = ""
+                                    for (i in 0 until response.body()!!.sessoes.size) {
+                                        listadeJogos.add(
+                                            Sessao(
+                                                response.body()!!.sessoes[i],
+                                                response.body()!!.tamanho[i]
+                                            )
+                                        )
+                                    }
+                                    it.isVisible = false
+                                }
+
+                                "001" -> { //CPF errado
+                                    status.text = "Servidor:\nCPF inválido."
+                                    it.isClickable = true
+                                }
+
+                                "002" -> {  //Não é host
+                                    status.text = "Você não é um Host"
+                                    it.isClickable = true
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<GetSessoes2>, t: Throwable) {
+                            it.isClickable = true
+                            status.text = "Servidores indisponíveis\nTente novamente mais tarde."
+                        }
+                    })
+                }
+
+
+
+
+            /*
                 create.pegarSessao(GetSessoes(cpf.text.toString())).apply {
                     enqueue(object : Callback<GetSessoes> {
 
@@ -108,8 +155,8 @@ class ManagementSession : Fragment() {
                     })
                 }
 
-            } catch (e: Exception) {
-                status.text = "Aconteceu algum erro!"
+            */} catch (e: Exception) {
+                status.text = "Aconteceu algum erro!$e"
             }
 
 

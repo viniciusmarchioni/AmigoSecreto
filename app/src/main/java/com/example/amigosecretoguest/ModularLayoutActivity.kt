@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.amigosecretoguest.model.apagar
+import com.example.amigosecretoguest.model.apagar2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +19,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
     //config retrofit
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://18.230.152.190:5000/")
+        .baseUrl("http://flask-production-8741.up.railway.app/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -53,8 +54,35 @@ class ModularLayoutActivity() : AppCompatActivity() {
             }
 
             sim.setOnClickListener {
+                val call: Call<apagar2> = create.apagarsessao2(text.text.toString())
 
-                val call: Call<apagar> = create.apagarsessao(
+                call.enqueue(object : Callback<apagar2> {
+                    override fun onResponse(call: Call<apagar2>, response: Response<apagar2>) {
+                        if (response.body()!!.response == "200"){
+                            startActivity(
+                                Intent(
+                                    this@ModularLayoutActivity,
+                                    MainActivity::class.java
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<apagar2>, t: Throwable) {
+                        status.text = "Aconteceu algum erro."
+                    }
+
+
+                })
+
+
+
+
+            }
+
+
+
+                /*val call: Call<apagar> = create.apagarsessao(
                     apagar(true, text.text.toString())
                 )
 
@@ -80,7 +108,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
                 })
             }
-
+*/
         }
 
 
