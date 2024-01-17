@@ -22,7 +22,7 @@ class Home : Fragment() {
 
     //Configura o retrofit
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("http://18.230.152.190:5000/")
+        .baseUrl("http://localhost:5000/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

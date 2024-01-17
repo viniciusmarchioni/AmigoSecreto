@@ -19,7 +19,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
     //config retrofit
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://flask-production-8741.up.railway.app/")
+        .baseUrl("http://localhost:5000/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -58,7 +58,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
                 call.enqueue(object : Callback<apagar2> {
                     override fun onResponse(call: Call<apagar2>, response: Response<apagar2>) {
-                        if (response.body()!!.response == "200"){
+                        if (response.body()!!.response == "200") {
                             startActivity(
                                 Intent(
                                     this@ModularLayoutActivity,
@@ -76,39 +76,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
                 })
 
 
-
-
             }
-
-
-
-                /*val call: Call<apagar> = create.apagarsessao(
-                    apagar(true, text.text.toString())
-                )
-
-                call.enqueue(object : Callback<apagar> {
-
-                    override fun onResponse(call: Call<apagar>, response: Response<apagar>) {
-                        if (response.body()!!.response) {
-
-                            startActivity(
-                                Intent(
-                                    this@ModularLayoutActivity,
-                                    MainActivity::class.java
-                                )
-                            )
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<apagar>, t: Throwable) {
-
-                    }
-
-
-                })
-            }
-*/
         }
 
 
@@ -127,9 +95,9 @@ class ModularLayoutActivity() : AppCompatActivity() {
                     if (response.body()!!.response) {
                         status.text = "Sorteio realizado!"
                         return
-                    }
-                    else {
-                        status.text = "Só é possivel realizar o sorteio com pelo menos 3 participantes no jogo."
+                    } else {
+                        status.text =
+                            "Só é possivel realizar o sorteio com pelo menos 3 participantes no jogo."
                     }
                 }
 

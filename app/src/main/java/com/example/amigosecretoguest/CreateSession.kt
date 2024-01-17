@@ -31,7 +31,7 @@ class CreateSession : Fragment() {
     private lateinit var id: String
 
     //config retrofit
-    val retrofit = Retrofit.Builder().baseUrl("http://flask-production-8741.up.railway.app/")
+    val retrofit = Retrofit.Builder().baseUrl("http://localhost:5000/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
 

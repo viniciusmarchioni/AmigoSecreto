@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amigosecretoguest.adapter.AdapterGame
-import com.example.amigosecretoguest.model.GetSessoes
 import com.example.amigosecretoguest.model.GetSessoes2
 import com.example.amigosecretoguest.model.Sessao
 import retrofit2.Call
@@ -25,8 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ManagementSession : Fragment() {
 
     //config retrofit
-    private val retrofit = Retrofit.Builder().baseUrl("http://flask-production-8741.up.railway.app/")
-        .addConverterFactory(GsonConverterFactory.create()).build()
+    private val retrofit =
+        Retrofit.Builder().baseUrl("http://localhost:5000/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
 
     //Chama a interface no mesmo tipo da classe requerida pela api
     private val create = retrofit.create(request::class.java)
@@ -70,7 +70,7 @@ class ManagementSession : Fragment() {
 
             try {
                 create.getsessao2(cpf.text.toString()).apply {
-                    enqueue(object : Callback<GetSessoes2>{
+                    enqueue(object : Callback<GetSessoes2> {
                         override fun onResponse(
                             call: Call<GetSessoes2>,
                             response: Response<GetSessoes2>
@@ -110,52 +110,7 @@ class ManagementSession : Fragment() {
                 }
 
 
-
-
-            /*
-                create.pegarSessao(GetSessoes(cpf.text.toString())).apply {
-                    enqueue(object : Callback<GetSessoes> {
-
-                        override fun onResponse(
-                            call: Call<GetSessoes>, response: Response<GetSessoes>
-                        ) {
-                            //comparação de resposta
-                            when (response.body()!!.response) {
-                                "200" -> { //Tudo certo
-                                    status.text = ""
-                                    for (i in 0 until response.body()!!.sessoes.size) {
-                                        listadeJogos.add(
-                                            Sessao(
-                                                response.body()!!.sessoes[i],
-                                                response.body()!!.tamanho[i]
-                                            )
-                                        )
-                                    }
-                                    it.isVisible = false
-                                }
-
-                                "001" -> { //CPF errado
-                                    status.text = "Servidor:\nCPF inválido."
-                                    it.isClickable = true
-                                }
-
-                                "002" -> {  //Não é host
-                                    status.text = "Você não é um Host"
-                                    it.isClickable = true
-                                }
-                            }
-                        }
-
-                        override fun onFailure(call: Call<GetSessoes>, t: Throwable) {
-                            it.isClickable = true
-                            status.text = "Servidores indisponíveis\nTente novamente mais tarde."
-                        }
-
-
-                    })
-                }
-
-            */} catch (e: Exception) {
+            } catch (e: Exception) {
                 status.text = "Aconteceu algum erro!$e"
             }
 

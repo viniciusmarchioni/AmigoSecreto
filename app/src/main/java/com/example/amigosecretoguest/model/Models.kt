@@ -9,17 +9,6 @@ data class User (
     val response: String = ""
 
 )
-
-data class GetSessoes (
-
-    val cpf: String,
-    val sessoes: MutableList<String> = mutableListOf(),
-    val tamanho: MutableList<Int> = mutableListOf(),
-    val response: String = ""
-
-)
-
-
 data class GetSessoes2 (
 
     val sessoes: MutableList<String> = mutableListOf(),

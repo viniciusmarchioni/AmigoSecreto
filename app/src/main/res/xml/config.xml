@@ -2,8 +2,5 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
-        <domain includeSubdomains="true">18.217.160.66</domain>
-        <domain includeSubdomains="true">18.230.152.190</domain>
-        <domain includeSubdomains="true">flask-production-8741.up.railway.app</domain>
     </domain-config>
 </network-security-config>
