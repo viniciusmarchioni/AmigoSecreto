@@ -20,7 +20,7 @@
     <string name="confirm_delete_text">Deseja deletar a sessão? Esta ação não poderá ser desfeita</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="criacaoDeJogo">"Jogo criado! O ID de sua sessão é: "</string>
+    <string name="criacaoDeJogo">"Jogo criado!\nO ID de sua sessão é:\n"</string>
     <string name="aconteceuAlgumErro">Aconteceu algum erro.</string>
     <string name="sorteioRealizado">Sorteio realizado!</string>
     <string name="sorteioAlerta">Só é possivel realizar o sorteio com pelo menos 3 participantes no jogo.</string>

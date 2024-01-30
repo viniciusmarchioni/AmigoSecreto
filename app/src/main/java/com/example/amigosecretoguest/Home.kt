@@ -22,7 +22,7 @@ class Home : Fragment() {
 
     //Configura o retrofit
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("http://localhost:5000/")
+        .baseUrl("http://10.0.2.2:5000/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -45,30 +45,27 @@ class Home : Fragment() {
         val editDesejo = view.findViewById<EditText>(R.id.desejo_edit)
         val editId = view.findViewById<EditText>(R.id.gameId)
 
-        try {
-            val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-            editCpf.setText(sharedPref!!.getString("cpf",""))
-            editId.setText(sharedPref.getString("session",""))
-            editName.setText(sharedPref.getString("nome",""))
-
-
-        }catch (_:Exception){}
-
+        //cache
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+        )
+        editCpf.setText(sharedPref!!.getString("cpf", ""))
+        editId.setText(sharedPref.getString("session", ""))
+        editName.setText(sharedPref.getString("nome", ""))
 
 
         cadastrar.setOnClickListener {
             it.isClickable = false
             if (MainActivity().verify(editCpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido."
+                status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             } else if (MainActivity().verify(editName.text.toString(), 2, 20)) {
-                status.text = "Nome inválido."
+                status.text = getString(R.string.nomeinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             } else if (MainActivity().verify(editDesejo.text.toString(), 5, 255)) {
-                status.text = "Desejo inválido."
+                status.text = getString(R.string.desejoinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
             } else if (MainActivity().verify(editId.text.toString(), 10, 10)) {
@@ -78,13 +75,13 @@ class Home : Fragment() {
             }
 
 
-
             val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE
+            )
             val editor = sharedPref!!.edit()
-            editor.putString("cpf",editCpf.text.toString())
-            editor.putString("session",editId.text.toString())
-            editor.putString("nome",editName.text.toString())
+            editor.putString("cpf", editCpf.text.toString())
+            editor.putString("session", editId.text.toString())
+            editor.putString("nome", editName.text.toString())
             editor.apply()
 
 
@@ -119,9 +116,9 @@ class Home : Fragment() {
                         when (response.body()!!.response) {
 
                             "001" -> status.text = "Sessão não encontrada."
-                            "002" -> status.text = "Servidor:\nCPF inválido."
-                            "003" -> status.text = "Servidor:\nNome inválido."
-                            "004" -> status.text = "Servidor:\nDesejo inválido."
+                            "002" -> status.text = getString(R.string.cpfinvalid_Text)
+                            "003" -> status.text = getString(R.string.nomeinvalid_Text)
+                            "004" -> status.text = getString(R.string.desejoinvalid_Text)
                             "005" -> status.text = "Você já está cadastrado."
                             "100" -> status.text = "Aconteceu algum erro."
 

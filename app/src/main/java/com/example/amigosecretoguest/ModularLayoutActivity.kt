@@ -15,25 +15,24 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ModularLayoutActivity() : AppCompatActivity() {
+class ModularLayoutActivity : AppCompatActivity() {
 
     //config retrofit
-    val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    //Chama a interface no mesmo tipo da classe requerida pela api
-    val create = retrofit.create(request::class.java)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://10.0.2.2:5000/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val create = retrofit.create(request::class.java)//Chama a interface no mesmo tipo da classe requerida pela api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modular_layout)
         val text = findViewById<TextView>(R.id.texto)
-        text.text = intent.getStringExtra("titulo")
         val delete = findViewById<Button>(R.id.deletar)
         val sorteio = findViewById<Button>(R.id.sortear)
         val status = findViewById<TextView>(R.id.status)
+        text.text = intent.getStringExtra("titulo")
+
 
         delete.setOnClickListener {
             val deleteLayout = findViewById<RelativeLayout>(R.id.layoutdelete)
@@ -60,10 +59,10 @@ class ModularLayoutActivity() : AppCompatActivity() {
                     override fun onResponse(call: Call<Apagar>, response: Response<Apagar>) {
                         if (response.body()!!.response == "200") {
                             startActivity(
-                                    Intent(
-                                            this@ModularLayoutActivity,
-                                            MainActivity::class.java
-                                    )
+                                Intent(
+                                    this@ModularLayoutActivity,
+                                    MainActivity::class.java
+                                )
                             )
                         }
                     }
@@ -85,9 +84,9 @@ class ModularLayoutActivity() : AppCompatActivity() {
 
             //chama função da interface
             val call: Call<Sorteio> =
-                    create.realizarsorteio(
-                            Sorteio(true, text.text.toString())
-                    )
+                create.realizarsorteio(
+                    Sorteio(true, text.text.toString())
+                )
 
             call.enqueue(object : Callback<Sorteio> {
 
@@ -101,7 +100,7 @@ class ModularLayoutActivity() : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Sorteio>, t: Throwable) {
-                    status.text = "Erro:\n$t"
+                    status.text = getString(R.string.aconteceuAlgumErro)
                 }
             })
 

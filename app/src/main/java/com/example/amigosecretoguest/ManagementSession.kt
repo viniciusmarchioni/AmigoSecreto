@@ -27,12 +27,9 @@ class ManagementSession : Fragment() {
     private val retrofit =
         Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
             .addConverterFactory(GsonConverterFactory.create()).build()
-
-    //Chama a interface no mesmo tipo da classe requerida pela api
-    private val create = retrofit.create(request::class.java)
-
-    //Config Adapter
-    val listadeJogos: MutableList<Sessao> = mutableListOf()
+    private val create =
+        retrofit.create(request::class.java)//Chama a interface no mesmo tipo da classe requerida pela api
+    val listadeJogos: MutableList<Sessao> = mutableListOf()//Config Adapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,15 +46,10 @@ class ManagementSession : Fragment() {
         recyclerview.adapter = AdapterGame(requireContext(), listadeJogos)
 
 
-        try {
-
-            val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE
-            )
-            cpf.setText(sharedPref!!.getString("cpf", ""))
-
-        } catch (_: Exception) {
-        }
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+        )
+        cpf.setText(sharedPref!!.getString("cpf", ""))
 
 
         sessoesButton.setOnClickListener {
@@ -72,8 +64,8 @@ class ManagementSession : Fragment() {
                 create.getsessao2(cpf.text.toString()).apply {
                     enqueue(object : Callback<GetSessoes> {
                         override fun onResponse(
-                                call: Call<GetSessoes>,
-                                response: Response<GetSessoes>
+                            call: Call<GetSessoes>,
+                            response: Response<GetSessoes>
                         ) {
                             //comparação de resposta
                             when (response.body()?.response) {

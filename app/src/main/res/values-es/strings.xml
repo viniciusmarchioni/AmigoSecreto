@@ -21,7 +21,7 @@
     <string name="confirm_delete_text">¿Quieres eliminar la sesión?\nEsta acción no se puede deshacer</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
-    <string name="criacaoDeJogo">"¡Juego creado!\nSu ID de sesión es: "</string>
+    <string name="criacaoDeJogo">"¡Juego creado!\nSu ID de sesión es:\n"</string>
     <string name="aconteceuAlgumErro">Se ha producido un error.</string>
     <string name="sorteioRealizado">¡Sorteo celebrado!</string>
     <string name="sorteioAlerta">Sólo es posible realizar el sorteo con al menos 3 participantes en el juego.</string>
