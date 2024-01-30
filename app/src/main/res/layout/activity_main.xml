@@ -25,6 +25,7 @@
             android:id="@+id/cadastrar"
             android:src="@drawable/baseline_person_add_out"
             android:layout_height="50dp"
+            android:clickable="false"
             android:layout_width="50dp"
             android:background="@color/white"
             />

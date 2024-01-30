@@ -27,4 +27,8 @@
     <string name="naoHost">Você não é um host.</string>
     <string name="servidoresIndisponiveis">Servidores indisponíveis.\nTente novamente mais tarde.</string>
     <string name="preference_file_key">com.example.amigosecretoguest.PREFERENCE_FILE_KEY</string>
+    <string name="falhanaconexao">Falha na conexão com o servidor</string>
+    <string name="copiado">Copiado!</string>
+    <string name="jaestacadastrado">Você já está cadastrado</string>
+    <string name="sessaoNaoEncontrada">Sessão não encontrada</string>
 </resources>

@@ -16,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         val criar = findViewById<ImageButton>(R.id.criar)
         val gerenciar = findViewById<ImageButton>(R.id.gerenciar)
 
-        registrar.isClickable = false
-
-
+        //Opções do menu
         registrar.setOnClickListener {
             it.isClickable = false
             criar.isClickable = true
@@ -65,13 +63,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame, fragment)
         fragmentTransaction.commit()
-    }
-
-    fun verify(editText: String, min: Int, max: Int): Boolean {
-        if (editText.length < min || editText.length > max) {
-            return true
-        }
-        return false
     }
 
 }

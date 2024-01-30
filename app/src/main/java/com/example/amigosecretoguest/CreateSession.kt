@@ -51,16 +51,11 @@ class CreateSession : Fragment() {
         val status = view.findViewById<TextView>(R.id.status)
         val copy = view.findViewById<ImageButton>(R.id.copy)
 
-        //tenta atribuir o valor no campo de cpf, se falhar é pq não existe, então ele passa
-        try {
-
-            val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE
-            )
-            cpfedit.setText(sharedPref!!.getString("cpf", ""))
-            name.setText(sharedPref.getString("nome", ""))
-        } catch (_: Exception) {
-        }
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE
+        )
+        cpfedit.setText(sharedPref!!.getString("cpf", ""))
+        name.setText(sharedPref.getString("nome", ""))
 
         createButton.setOnClickListener {
             it.isClickable = false
@@ -113,7 +108,7 @@ class CreateSession : Fragment() {
 
                     @SuppressLint("SetTextI18n")
                     override fun onFailure(call: Call<User>, t: Throwable) {
-                        status.text = "Falha na conexão com o servidor.$t"
+                        status.text = getString(R.string.falhanaconexao)
                         it.isClickable = true
                     }
 
@@ -128,7 +123,7 @@ class CreateSession : Fragment() {
             val clipData = ClipData.newPlainText("Label", id)
             clipboardManager.setPrimaryClip(clipData)
 
-            Toast.makeText(requireContext(), "Copiado!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.copiado), Toast.LENGTH_SHORT).show()
         }
 
 
@@ -136,13 +131,8 @@ class CreateSession : Fragment() {
     }
 
 
-    companion object {
-        fun isValidText(text: String, minLength: Int, maxLength: Int): Boolean {
-            if (text.length < minLength || text.length > maxLength) {
-                return true
-            }
-            return false
-        }
+    private fun isValidText(editText: String, min: Int, max: Int): Boolean {
+        return (editText.length < min || editText.length > max)
     }
 
 

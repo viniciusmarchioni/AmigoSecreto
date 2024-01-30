@@ -54,7 +54,7 @@ class ManagementSession : Fragment() {
 
         sessoesButton.setOnClickListener {
             it.isClickable = false
-            if (MainActivity().verify(cpf.text.toString(), 11, 14)) {
+            if (verify(cpf.text.toString(), 11, 14)) {
                 status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
@@ -110,6 +110,10 @@ class ManagementSession : Fragment() {
         }
 
         return view
+    }
+
+    private fun verify(editText: String, min: Int, max: Int): Boolean {
+        return (editText.length < min || editText.length > max)
     }
 
 }

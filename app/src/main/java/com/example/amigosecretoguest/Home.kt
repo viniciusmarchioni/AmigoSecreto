@@ -2,6 +2,7 @@ package com.example.amigosecretoguest
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,35 +50,33 @@ class Home : Fragment() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file_key), Context.MODE_PRIVATE
         )
-        editCpf.setText(sharedPref!!.getString("cpf", ""))
-        editId.setText(sharedPref.getString("session", ""))
-        editName.setText(sharedPref.getString("nome", ""))
+
+        editCpf.setText(sharedPref?.getString("cpf", ""))
+        editId.setText(sharedPref?.getString("session", ""))
+        editName.setText(sharedPref?.getString("nome", ""))
 
 
         cadastrar.setOnClickListener {
             it.isClickable = false
-            if (MainActivity().verify(editCpf.text.toString(), 11, 14)) {
+            if (verify(editCpf.text.toString(), 11, 14)) {
                 status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (MainActivity().verify(editName.text.toString(), 2, 20)) {
+            } else if (verify(editName.text.toString(), 2, 20)) {
                 status.text = getString(R.string.nomeinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (MainActivity().verify(editDesejo.text.toString(), 5, 255)) {
+            } else if (verify(editDesejo.text.toString(), 5, 255)) {
                 status.text = getString(R.string.desejoinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (MainActivity().verify(editId.text.toString(), 10, 10)) {
-                status.text = "ID de jogo não encontrado."
+            } else if (verify(editId.text.toString(), 10, 10)) {
+                status.text = getString(R.string.sessaoNaoEncontrada)
                 it.isClickable = true
                 return@setOnClickListener
             }
 
-
-            val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE
-            )
+            //escrever novas
             val editor = sharedPref!!.edit()
             editor.putString("cpf", editCpf.text.toString())
             editor.putString("session", editId.text.toString())
@@ -97,7 +96,6 @@ class Home : Fragment() {
                     )
                 )
 
-
                 //roda em segundo plano
                 call.enqueue(object : Callback<User> {
 
@@ -113,14 +111,14 @@ class Home : Fragment() {
                         }
 
 
-                        when (response.body()!!.response) {
+                        when (response.body()?.response) {
 
-                            "001" -> status.text = "Sessão não encontrada."
+                            "001" -> status.text = getString(R.string.sessaoNaoEncontrada)
                             "002" -> status.text = getString(R.string.cpfinvalid_Text)
                             "003" -> status.text = getString(R.string.nomeinvalid_Text)
                             "004" -> status.text = getString(R.string.desejoinvalid_Text)
-                            "005" -> status.text = "Você já está cadastrado."
-                            "100" -> status.text = "Aconteceu algum erro."
+                            "005" -> status.text = getString(R.string.jaestacadastrado)
+                            "100" -> status.text = getString(R.string.aconteceuAlgumErro)
 
                         }
                         it.isClickable = true
@@ -142,12 +140,12 @@ class Home : Fragment() {
 
         verificar.setOnClickListener {
             it.isClickable = false
-            if (MainActivity().verify(editCpf.text.toString(), 11, 14)) {
-                status.text = "CPF inválido."
+            if (verify(editCpf.text.toString(), 11, 14)) {
+                status.text = getString(R.string.cpfinvalid_Text)
                 it.isClickable = true
                 return@setOnClickListener
-            } else if (MainActivity().verify(editId.text.toString(), 10, 10)) {
-                status.text = "Sessão não encontrada."
+            } else if (verify(editId.text.toString(), 10, 10)) {
+                status.text = getString(R.string.sessaoNaoEncontrada)
                 it.isClickable = true
                 return@setOnClickListener
             }
@@ -179,8 +177,8 @@ class Home : Fragment() {
 
                     when (response.body()!!.response) {
 
-                        "001" -> status.text = "Servidor: CPF inválido."
-                        "002" -> status.text = "Servidor: Sessão não encontrada"
+                        "001" -> status.text = getString(R.string.cpfinvalid_Text)
+                        "002" -> status.text = getString(R.string.sessaoNaoEncontrada)
                         "003" -> status.text = "Você não está cadastrado na sessão."
                         "004" -> status.text = "O Sorteio ainda não aconteceu."
 
@@ -199,5 +197,9 @@ class Home : Fragment() {
         }
 
         return view
+    }
+
+    private fun verify(editText: String, min: Int, max: Int): Boolean {
+        return (editText.length < min || editText.length > max)
     }
 }
