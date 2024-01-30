@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import io.ak1.BubbleTabBar
+import io.ak1.OnBubbleClickListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,49 +14,66 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setFragment(Home())
 
-        val registrar = findViewById<ImageButton>(R.id.cadastrar)
-        val criar = findViewById<ImageButton>(R.id.criar)
-        val gerenciar = findViewById<ImageButton>(R.id.gerenciar)
+        val bubbleTabBar = findViewById<BubbleTabBar>(R.id.bubbleTabBar)
 
-        //Opções do menu
-        registrar.setOnClickListener {
-            it.isClickable = false
-            criar.isClickable = true
-            gerenciar.isClickable = true
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.entry_left_to_right, R.anim.exit_left_to_right)
-                .replace(R.id.frame, Home())
-                .commit()
-        }
-        criar.setOnClickListener {
-            it.isClickable = false
-            registrar.isClickable = true
-            gerenciar.isClickable = true
-            if (supportFragmentManager.findFragmentById(R.id.frame) is Home) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.entry_right_to_left, R.anim.exit_right_to_left)
-                    .replace(R.id.frame, CreateSession())
-                    .commit()
-            } else {
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.entry_left_to_right, R.anim.exit_left_to_right)
-                    .replace(R.id.frame, CreateSession())
-                    .commit()
+        bubbleTabBar.addBubbleListener {
+
+            when (it) {
+
+                R.id.home -> {
+                    if (supportFragmentManager.findFragmentById(R.id.frame) !is Home) {
+                        supportFragmentManager
+                            .beginTransaction()
+                            .setCustomAnimations(
+                                R.anim.entry_left_to_right,
+                                R.anim.exit_left_to_right
+                            )
+                            .replace(R.id.frame, Home())
+                            .commit()
+                    }
+                }
+
+                R.id.criar -> { //gerenciar
+                    if (supportFragmentManager.findFragmentById(R.id.frame) !is CreateSession) {
+                        if (supportFragmentManager.findFragmentById(R.id.frame) is Home) {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.entry_right_to_left,
+                                    R.anim.exit_right_to_left
+                                )
+                                .replace(R.id.frame, CreateSession())
+                                .commit()
+                        } else {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.entry_left_to_right,
+                                    R.anim.exit_left_to_right
+                                )
+                                .replace(R.id.frame, CreateSession())
+                                .commit()
+                        }
+                    }
+                }
+
+                R.id.gerenciar -> { // criar
+                    if (supportFragmentManager.findFragmentById(R.id.frame) !is ManagementSession) {
+                        supportFragmentManager
+                            .beginTransaction()
+                            .setCustomAnimations(
+                                R.anim.entry_right_to_left,
+                                R.anim.exit_right_to_left
+                            )
+                            .replace(R.id.frame, ManagementSession())
+                            .commit()
+                    }
+                }
+
+
             }
-        }
 
-        gerenciar.setOnClickListener {
-            it.isClickable = false
-            registrar.isClickable = true
-            criar.isClickable = true
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.entry_right_to_left, R.anim.exit_right_to_left)
-                .replace(R.id.frame, ManagementSession())
-                .commit()
+
         }
 
     }
@@ -66,3 +85,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+

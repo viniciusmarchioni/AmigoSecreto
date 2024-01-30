@@ -31,12 +31,12 @@ class CreateSession : Fragment() {
     private lateinit var id: String
 
     //config retrofit
-    val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
+    private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000/")
         .addConverterFactory(GsonConverterFactory.create()).build()
 
 
     //Chama a interface no mesmo tipo da classe requerida pela api
-    val create = retrofit.create(request::class.java)
+    private val create = retrofit.create(request::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,10 +83,7 @@ class CreateSession : Fragment() {
                 enqueue(object : Callback<User> {
 
                     override fun onResponse(call: Call<User>, response: Response<User>) {
-                        val sharedPref = activity?.getSharedPreferences(
-                            getString(R.string.preference_file_key), Context.MODE_PRIVATE
-                        )
-                        val editor = sharedPref!!.edit()
+                        val editor = sharedPref.edit()
                         editor.putString("cpf", cpfedit.text.toString())
                         editor.apply()
 

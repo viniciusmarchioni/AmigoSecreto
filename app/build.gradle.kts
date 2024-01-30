@@ -49,4 +49,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.5.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
 
+    //bubble
+    implementation("io.ak1:bubbletabbar:1.0.8")
+
+
 }

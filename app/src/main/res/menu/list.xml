@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_person_add_out"
+        android:title="@string/SingIn"
+        android:checked="true"
+        android:color="@color/backgroundNightBlue"/>
+
+    <item
+        android:id="@+id/criar"
+        android:icon="@drawable/baseline_create"
+        android:title="@string/Create"
+        android:color="#5CD17C"/>
+
+    <item
+        android:id="@+id/gerenciar"
+        android:icon="@drawable/baseline_manage_search"
+        android:title="@string/Gerenciar"
+        android:color="@color/home"/>
+</menu>

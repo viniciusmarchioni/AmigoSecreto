@@ -10,6 +10,8 @@
     <string name="verificar_Text">Verificar sorteio</string>
     <string name="image_Description">Image</string>
     <string name="SingIn">Entrar</string>
+    <string name="Create">Criar</string>
+    <string name="Gerenciar">Gerenciar</string>
     <string name="sessionid_text">ID do sessão</string>
     <string name="create_session_text">Criar uma sessão</string>
     <string name="create_text">Criar sessão</string>
