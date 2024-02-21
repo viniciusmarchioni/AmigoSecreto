@@ -13,6 +13,9 @@
     <string name="SingIn">Entrar</string>
     <string name="Create">Crear</string>
     <string name="Gerenciar">Gestionar</string>
+    <string name="ajuda">Cómo jugar</string>
+    <string name="sobre">--Acerca de la aplicación--</string>
+    <string name="vinicius_marchioni">Vinicius Marchioni</string>
     <string name="sessionid_text">ID de sesión</string>
     <string name="create_session_text">Crear una sesión</string>
     <string name="create_text">Crear sesión</string>

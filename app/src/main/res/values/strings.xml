@@ -12,6 +12,9 @@
     <string name="SingIn">Entrar</string>
     <string name="Create">Criar</string>
     <string name="Gerenciar">Gerenciar</string>
+    <string name="ajuda">Como jogar</string>
+    <string name="sobre">--Sobre--</string>
+    <string name="vinicius_marchioni">Vinicius Marchioni</string>
     <string name="sessionid_text">ID do sessão</string>
     <string name="create_session_text">Criar uma sessão</string>
     <string name="create_text">Criar sessão</string>

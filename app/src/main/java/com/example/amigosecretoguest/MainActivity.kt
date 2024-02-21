@@ -59,15 +59,41 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.gerenciar -> { // criar
                     if (supportFragmentManager.findFragmentById(R.id.frame) !is ManagementSession) {
+                        if (supportFragmentManager.findFragmentById(R.id.frame) is HelpFragment) {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.entry_left_to_right,
+                                    R.anim.exit_left_to_right
+                                )
+                                .replace(R.id.frame, ManagementSession())
+                                .commit()
+                        } else {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.entry_right_to_left,
+                                    R.anim.exit_right_to_left
+                                )
+                                .replace(R.id.frame, ManagementSession())
+                                .commit()
+                        }
+                    }
+                }
+
+                R.id.help -> {//ajuda
+                    if (supportFragmentManager.findFragmentById(R.id.frame) !is HelpFragment) {
                         supportFragmentManager
                             .beginTransaction()
                             .setCustomAnimations(
                                 R.anim.entry_right_to_left,
                                 R.anim.exit_right_to_left
                             )
-                            .replace(R.id.frame, ManagementSession())
+                            .replace(R.id.frame, HelpFragment())
                             .commit()
                     }
+
+
                 }
 
 

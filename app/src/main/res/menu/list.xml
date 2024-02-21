@@ -18,4 +18,11 @@
         android:icon="@drawable/baseline_manage_search"
         android:title="@string/Gerenciar"
         android:color="@color/home"/>
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/help_24"
+        android:title="@string/ajuda"
+        android:color="#686464"/>
+
 </menu>
