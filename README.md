@@ -4,7 +4,7 @@ Um projeto feito com Android SDK, Flask, Postgresql e EC2.
 
 ## Começando
 
-Por enquanto você pode baixar o APK aqui mesmo no git por este <a href='https://github.com/viniciusmarchioni/ListaDeCompras/blob/master/apk/app-debug.apk'>link</a><br>
+Por enquanto você pode baixar o APK aqui mesmo no git por este <a href='https://github.com/viniciusmarchioni/AmigoSecreto/blob/master/app-debug.apk'>link</a><br>
 <br>
 <br>
 
